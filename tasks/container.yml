@@ -36,7 +36,7 @@
       --rpc
       --rpcaddr=0.0.0.0
       --rpcport={{ geth_rpc_port }}
-      --rpcvhosts={{ geth_alias }},localhost
+      --rpcvhosts={{ geth_aliases | join(",") }}
       --rpcapi={{ geth_rcp_api }}
     volumes:
       - '{{ geth_cont_vol }}/keys:/keys:rw'
