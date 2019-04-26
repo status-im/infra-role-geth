@@ -24,7 +24,7 @@ geth_sync_check_script: '/usr/local/bin/check_geth_sync.sh'
 # RPC port of administration
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
-geth_rcp_api: 'eth,net,web3,personal,shh'
+geth_rcp_api: 'eth,net,web3,personal,shh,admin'
 geth_alias: 'geth'
 
 # Sync mode: full, fast, light
