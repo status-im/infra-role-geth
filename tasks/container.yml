@@ -13,10 +13,17 @@
     memory: '{{ cont_mem_limit }}m'
     memory_swap: '{{ cont_swap_limit }}m'
     ports:
-      - '{{ geth_port }}:{{ geth_port }}'
+      - '{{ geth_port }}:{{ geth_port }}/tcp'
+      - '{{ geth_port }}:{{ geth_port }}/udp'
       - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}'
     command: |
-      --networkid={{ geth_network_id }}
+      {% if geth_network_name in ("ropsten", "testnet") %}
+      --testnet
+      {% elif geth_network_name == "rinkeby" %}
+      --rinkeby
+      {% elif geth_network_name == "goerli" %}
+      --goerli
+      {% endif %}
       {% if geth_v5disc_enabled %}
       --v5disc
       {% endif %}

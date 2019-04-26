@@ -3,15 +3,6 @@
 geth_account_address: ~
 geth_account_password: ~
 
-# Map of network IDs
-geth_network_ids:
-  mainnet: 1
-  frontier: 1
-  morden: 2
-  testnet: 3
-  ropsten: 3
-  rinkeby: 4
-
 # Container config
 geth_cont_image: 'ethereum/client-go:v1.8.27'
 geth_cont_name: 'geth'
@@ -52,7 +43,6 @@ geth_log_level_name: 'info'
 geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
 # 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby
 geth_network_name: 'ropsten'
-geth_network_id: '{{ geth_network_ids[geth_network_name | lower] | mandatory }}'
 
 # Port to listen on
 geth_port: 30303
