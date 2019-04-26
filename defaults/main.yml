@@ -54,10 +54,12 @@ geth_account_address: ~
 geth_account_password: ~
 
 # Consul config
-geth_consul_tags:
+geth_consul_default_tags:
   - geth
   - '{{ env }}.{{ stage }}'
   - '{{ geth_network_name }}'
+geth_consul_extra_tags: []
+geth_consul_tags: '{{ geth_consul_default_tags + geth_consul_extra_tags }}'
 
 # resources limits to avoid killing the host
 cont_mem_ratio: 0.7

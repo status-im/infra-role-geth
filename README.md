@@ -19,7 +19,7 @@ geth_cont_name: 'geth-mainnet'
 geth_network_name: 'mainnet'
 geth_sync_mode: 'full'
 geth_log_level: 3
-geth_consul_tags: '{{ geth_consul_tags + ["mytag"] }}'
+geth_consul_extra_tags: ["mytag"]
 ```
 
 For the rest see the [`defaults/main.yml`](/defaults/main.yml) config file.
