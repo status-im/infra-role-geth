@@ -1,7 +1,7 @@
 ---
-- name: Enable LES ports
+- name: Geth | Enable ports on firewall
   iptables:
-    comment: '{{ geth_name }}'
+    comment: '{{ geth_cont_name }}'
     jump: ACCEPT
     action: insert
     chain: DOCKER-USER
