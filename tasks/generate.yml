@@ -30,15 +30,23 @@
       - '{{ geth_cont_vol }}/keys:/keys:rw'
   when: account_files.files | length == 0
 
+- name: Geth | Find all account files
+  find:
+    paths: '{{ geth_keys_path }}'
+    patterns: 'UTC--*'
+    file_type: file
+  register: account_files
+
 - name: Geth | Save account address
-  uri:
-    url: http://localhost:{{ geth_rpc_port }}/
-    method: POST
-    body: '{"id": 1, "method": "eth_accounts"}'
-    body_format: json
-    return_content: yes
-  register: geth_accounts
+  slurp:
+    src: '{{ account_files.files[0].path }}'
+  register: geth_account
 
 - name: Geth | Extract account address
   set_fact:
-    geth_account_address: '{{ node_info.json.result | first }}'
+    geth_account_address: '{{ (geth_account.content | b64decode | from_json)["address"] }}'
+
+- name: Geth | Save account address to file
+  copy:
+    dest: '{{ geth_keys_path }}/address'
+    content: '{{ geth_account_address | mandatory }}'

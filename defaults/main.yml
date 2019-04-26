@@ -1,5 +1,9 @@
 ---
-# map of network IDs
+# Security
+geth_account_address: ~
+geth_account_password: ~
+
+# Map of network IDs
 miner_network_ids:
   mainnet: 1
   frontier: 1
@@ -8,6 +12,7 @@ miner_network_ids:
   ropsten: 3
   rinkeby: 4
 
+# Container config
 geth_cont_image: 'ethereum/client-go:v1.8.27'
 geth_cont_name: 'geth'
 
@@ -48,10 +53,6 @@ geth_port: 30303
 geth_cache: 1536
 # Address to advertise
 geth_public_addr: '{{ ansible_host }}'
-
-# security
-geth_account_address: ~
-geth_account_password: ~
 
 # Consul config
 geth_consul_default_tags:
