@@ -1,0 +1,32 @@
+---
+- name: Geth | Create sync check script
+  copy:
+    dest: '{{ geth_sync_check_script }}'
+    mode: 0755
+    content: |
+      #!/usr/bin/env bash
+      set -e
+      echo -n "Geth synced: "
+      RESP=$(curl -s -X POST -H 'Content-type:application/json' \
+                 --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' \
+                 http://localhost:{{ faucet_geth_rpc_port }}/)
+      echo "${RESP}" | jq -e ".result == false" \
+          || ( echo "${RESP}" | jq . ; exit 1 )
+
+- name: Geth | Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ geth_cont_name | replace("-", "_") }}'
+    consul_services:
+      - name: '{{ geth_cont_name }}'
+        tags: '{{ geth_consul_tags }}'
+        port: '{{ geth_port }}'
+        meta:
+          env: '{{ env }}'
+          stage: '{{ stage }}'
+          node_addr: '{{ node_info.json.result.id }}'
+          node_enode: '{{ node_info.json.result.enode }}'
+        checks:
+          - id: '{{ geth_cont_name }}-rpc-status'
+            type: script
+            script: '{{ geth_sync_check_script }}'

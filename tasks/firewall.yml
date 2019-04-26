@@ -1,0 +1,12 @@
+---
+- name: Enable LES ports
+  iptables:
+    comment: '{{ geth_name }}'
+    jump: ACCEPT
+    action: insert
+    chain: DOCKER-USER
+    source: '0.0.0.0/0'
+    protocol: 'tcp'
+    destination_port: '{{ geth_port }}'
+  notify:
+    - Save iptables rules

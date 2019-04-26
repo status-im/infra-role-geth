@@ -1,0 +1,44 @@
+---
+- name: Geth | Create keys directory
+  file:
+    path: '{{ geth_keys_path }}'
+    state: directory
+
+- name: Geth | Find all account files
+  find:
+    paths: '{{ geth_keys_path }}'
+    patterns: 'UTC--*'
+    file_type: file
+  register: account_files
+
+- name: Geth | Set password to be empty
+  copy:
+    dest: '{{ geth_keys_path }}/password'
+    content: '{{ geth_account_password | mandatory }}'
+
+- name: Geth | Generate account
+  docker_container:
+    name: '{{ geth_cont_name }}'
+    image: '{{ geth_cont_image }}'
+    pull: true
+    auto_remove: yes
+    command: |
+      account new
+      --keystore=/keys
+      --password=/keys/password
+    volumes:
+      - '{{ geth_cont_vol }}/keys:/keys:rw'
+  when: account_files.files | length == 0
+
+- name: Geth | Save account address
+  uri:
+    url: http://localhost:{{ geth_rpc_port }}/
+    method: POST
+    body: '{"id": 1, "method": "eth_accounts"}'
+    body_format: json
+    return_content: yes
+  register: geth_accounts
+
+- name: Geth | Extract account address
+  set_fact:
+    geth_account_address: '{{ node_info.json.result | first }}'

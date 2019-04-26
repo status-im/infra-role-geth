@@ -1,0 +1,44 @@
+---
+- name: Geth | Create the container
+  docker_container:
+    name: '{{ geth_cont_name }}'
+    image: '{{ geth_cont_image }}'
+    user: root
+    pull: true
+    restart_policy: always
+    state: '{{ cont_state }}'
+    recreate: '{{ cont_recreate }}'
+    restart: '{{ cont_restart }}'
+    # some limits due to statusd hogging resources
+    memory: '{{ cont_mem_limit }}m'
+    memory_swap: '{{ cont_swap_limit }}m'
+    ports:
+      - '{{ geth_port }}:{{ geth_port }}'
+      - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}'
+    command: |
+      --networkid={{ geth_network_id }}
+      {% if geth_v5disc_enabled %}
+      --v5disc
+      {% endif %}
+      --syncmode={{ geth_sync_mode }}
+      {% if geth_sync_mode == 'light' %}
+      --lightserv={{ geth_light_serv }}
+      --lightpeers={{ geth_light_peers }}
+      {% endif %}
+      --verbosity={{ geth_log_level }} 
+      --cache={{ geth_cache }}
+      --port={{ geth_port }}
+      --nat=extip:{{ geth_public_addr }}
+      --unlock={{ geth_account_address }}
+      --datadir=/data
+      --password=/keys/password
+      --keystore=/keys
+      --rpc
+      --rpcaddr=0.0.0.0
+      --rpcport={{ geth_rpc_port }}
+      --rpcvhosts={{ faucet_geth_alias }},localhost
+      --rpcapi={{ geth_rcp_api }}
+    volumes:
+      - '{{ geth_cont_vol }}/keys:/keys:rw'
+      # WARNING: This assumes /data is mounted, see bootstrap role
+      - '{{ geth_data_path }}:/data:rw'

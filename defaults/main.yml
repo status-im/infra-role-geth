@@ -1,0 +1,60 @@
+---
+# map of network IDs
+miner_network_ids:
+  frontier: 1
+  morden: 2
+  ropsten: 3
+  rinkeby: 4
+
+geth_cont_image: 'ethereum/client-go:v1.8.27'
+geth_cont_name: 'geth'
+
+geth_cont_vol: '/docker/{{ geth_cont_name }}'
+geth_data_path: '{{ geth_cont_vol }}/data'
+geth_keys_path: '{{ geth_cont_vol }}/keys'
+geth_enode_file: '{{ geth_keys_path }}/enode'
+geth_sync_check_script: '/usr/local/bin/check_geth_sync.sh'
+# RPC port of administration
+geth_rpc_addr: '127.0.0.1'
+geth_rpc_port: 8545
+geth_rcp_api: 'eth,net,web3,personal,shh'
+geth_alias: 'geth'
+# Sync mode: full, fast, light
+geth_sync_mode: 'light'
+# Peer discovery protocol
+geth_v5disc_enabled: true
+# Log level: 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=detail
+geth_log_level: 3
+# 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby
+geth_network_name: 'ropsten'
+geth_network_id: '{{ faucet_network_ids[faucet_network_name] | mandatory }}'
+# Maximum percentage of time allowed for serving LES requests (0-90)
+geth_light_serv: 90
+# Maximum number of LES client peers (default: 100)
+geth_light_peers: 200
+# Port to listen on
+geth_port: 30303
+# Memory to use
+geth_cache: 1536
+# Address to advertise
+geth_public_addr: '{{ ansible_host }}'
+
+# security
+geth_account_address: ~
+geth_account_password: ~
+
+# Consul config
+geth_consul_tags:
+  - geth
+  - '{{ env }}.{{ stage }}'
+  - '{{ geth_network_name }}'
+
+# resources limits to avoid killing the host
+cont_mem_ratio: 0.7
+cont_mem_limit: '{{ (ansible_memtotal_mb * cont_mem_ratio|float) | int }}'
+cont_swap_limit: '{{ (cont_mem_limit|int) + (ansible_swaptotal_mb * cont_mem_ratio|float) | int }}'
+
+# generic container beaviour
+cont_state: started
+cont_restart: false
+cont_recreate: false

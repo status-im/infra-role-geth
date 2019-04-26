@@ -1,0 +1,23 @@
+---
+- name: Geth | Wait for JSON RPC port to respond
+  wait_for:
+    host: 'localhost'
+    port: '{{ geth_rpc_port }}'
+    delay: 5
+    state: drained
+
+- name: Geth | Get enode address
+  uri:
+    url: http://localhost:{{ geth_rpc_port }}/
+    method: POST
+    body: '{"id": 1, "method": "admin_nodeInfo"}'
+    body_format: json
+    return_content: yes
+  register: node_info
+
+- name: 'Geth | Save enode address: {{ geth_enode_file }}'
+  copy:
+    dest: '{{ geth_enode_file }}'
+    content: '{{ node_info.json.result.enode }}'
+    owner: 
+    mode: 0644
