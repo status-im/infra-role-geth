@@ -9,7 +9,7 @@
       echo -n "Geth synced: "
       RESP=$(curl -s -X POST -H 'Content-type:application/json' \
                  --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' \
-                 http://localhost:{{ faucet_geth_rpc_port }}/)
+                 http://localhost:{{ geth_rpc_port }}/)
       echo "${RESP}" | jq -e ".result == false" \
           || ( echo "${RESP}" | jq . ; exit 1 )
 
