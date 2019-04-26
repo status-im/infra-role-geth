@@ -1,8 +1,10 @@
 ---
 # map of network IDs
 miner_network_ids:
+  mainnet: 1
   frontier: 1
   morden: 2
+  testnet: 3
   ropsten: 3
   rinkeby: 4
 
@@ -23,11 +25,19 @@ geth_alias: 'geth'
 geth_sync_mode: 'light'
 # Peer discovery protocol
 geth_v5disc_enabled: true
-# Log level: 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=detail
-geth_log_level: 3
+# logging
+geth_lov_level_names:
+  silent: 0
+  error: 1
+  warn: 2
+  info: 3
+  debug: 4
+  detail: 5
+geth_log_level_name: 'info'
+geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
 # 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby
 geth_network_name: 'ropsten'
-geth_network_id: '{{ faucet_network_ids[faucet_network_name] | mandatory }}'
+geth_network_id: '{{ faucet_network_ids[faucet_network_name | lower] | mandatory }}'
 # Maximum percentage of time allowed for serving LES requests (0-90)
 geth_light_serv: 90
 # Maximum number of LES client peers (default: 100)
