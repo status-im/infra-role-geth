@@ -15,6 +15,7 @@ geth_account_password: 'my-secret-password'
 Other important settings are:
 
 ```yaml
+geth_cont_name: 'geth-mainnet'
 geth_network_name: 'mainnet'
 geth_sync_mode: 'full'
 geth_log_level: 3
