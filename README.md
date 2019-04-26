@@ -26,4 +26,4 @@ For the rest see the [`defaults/main.yml`](/defaults/main.yml) config file.
 
 # Known Issues
 
-__TODO__
+Currently only 3 networks are supported: `mainnet`, `ropsten`, and `goerli`
