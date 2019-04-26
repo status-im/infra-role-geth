@@ -25,7 +25,7 @@
       --lightserv={{ geth_light_serv }}
       --lightpeers={{ geth_light_peers }}
       {% endif %}
-      --verbosity={{ geth_log_level }} 
+      --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}
       --port={{ geth_port }}
       --nat=extip:{{ geth_public_addr }}
