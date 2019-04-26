@@ -21,7 +21,7 @@
       --v5disc
       {% endif %}
       --syncmode={{ geth_sync_mode }}
-      {% if geth_sync_mode == 'light' %}
+      {% if geth_sync_mode != 'light' %}
       --lightserv={{ geth_light_serv }}
       --lightpeers={{ geth_light_peers }}
       {% endif %}

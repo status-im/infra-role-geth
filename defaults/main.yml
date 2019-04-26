@@ -26,10 +26,16 @@ geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
 geth_rcp_api: 'eth,net,web3,personal,shh'
 geth_alias: 'geth'
+
 # Sync mode: full, fast, light
 geth_sync_mode: 'light'
+# Maximum percentage of time allowed for serving LES requests (0-90)
+geth_light_serv: 90
+# Maximum number of LES client peers (default: 100)
+geth_light_peers: 200
 # Peer discovery protocol
 geth_v5disc_enabled: true
+
 # logging
 geth_lov_level_names:
   silent: 0
@@ -43,10 +49,7 @@ geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | manda
 # 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby
 geth_network_name: 'ropsten'
 geth_network_id: '{{ geth_network_ids[geth_network_name | lower] | mandatory }}'
-# Maximum percentage of time allowed for serving LES requests (0-90)
-geth_light_serv: 90
-# Maximum number of LES client peers (default: 100)
-geth_light_peers: 200
+
 # Port to listen on
 geth_port: 30303
 # Memory to use
