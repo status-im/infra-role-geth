@@ -29,6 +29,11 @@ geth_account_pass: my-secret-account-pass
 geth_account_json: '{"account":"json_data"}'
 ```
 
+By default we create a [Consul service definition](https://www.consul.io/docs/agent/services.html), disable it using:
+```yaml
+geth_consul_enabled: false
+```
+
 For the rest see the [`defaults/main.yml`](/defaults/main.yml) config file.
 
 # Known Issues
