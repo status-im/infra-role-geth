@@ -16,9 +16,11 @@ geth_sync_check_script: '/usr/local/bin/check_geth_sync.sh'
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
 geth_rcp_api: 'eth,net,web3,personal,shh,admin'
+# useful for linking containers
+geth_extra_alias: geth
 geth_aliases:
-  - geth
   - localhost
+  - '{{ geth_extra_alias }}'
   - '{{ hostname }}'
   - '{{ hostname }}.tinc'
 
