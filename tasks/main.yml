@@ -4,3 +4,4 @@
 - import_tasks: firewall.yml
 - import_tasks: save_enode.yml
 - import_tasks: consul.yml
+  when: geth_consul_enabled
