@@ -15,6 +15,7 @@
   copy:
     dest: '{{ geth_keys_path }}/password'
     content: '{{ geth_account_password | mandatory }}'
+    mode: 0600
 
 - name: Geth | Generate account
   docker_container:
