@@ -21,13 +21,14 @@
 - name: Geth | Write account JSON
   copy:
     dest: '{{ geth_account_json_file }}'
-    content: '{{ geth_account_json }}'
+    content: '{{ geth_account_json | mandatory }}'
     owner: dockremap
     group: docker
     mode: 0640
   when: >
+    geth_account_addr is defined and
     geth_account_json is defined and
-    geth_account_addr is defined
+    geth_account_json != ""
 
 - name: Geth | Generate account
   block:
