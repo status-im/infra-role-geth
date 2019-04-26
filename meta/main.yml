@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Jakub Sokołowski <jakub@status.im>
+  description: Deploy and setup go-ethereum node.
+  company: Status.im
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+  dependencies:
+    - name: consul-service
+      src: git+git@github.com:status-im/infra-role-consul-service.git
+      scm: git
