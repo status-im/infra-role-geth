@@ -4,7 +4,7 @@ geth_account_address: ~
 geth_account_password: ~
 
 # Map of network IDs
-miner_network_ids:
+geth_network_ids:
   mainnet: 1
   frontier: 1
   morden: 2
@@ -42,7 +42,7 @@ geth_log_level_name: 'info'
 geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
 # 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby
 geth_network_name: 'ropsten'
-geth_network_id: '{{ faucet_network_ids[faucet_network_name | lower] | mandatory }}'
+geth_network_id: '{{ geth_network_ids[geth_network_name | lower] | mandatory }}'
 # Maximum percentage of time allowed for serving LES requests (0-90)
 geth_light_serv: 90
 # Maximum number of LES client peers (default: 100)
