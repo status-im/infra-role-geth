@@ -22,6 +22,13 @@ geth_log_level: 3
 geth_consul_extra_tags: ["mytag"]
 ```
 
+If you want to control the account used by the `geth` process you can use:
+```yaml
+geth_account_addr: 0x1j98dsa087fh09as8d7fhsa98dhfas9s0dasjd0d
+geth_account_pass: my-secret-account-pass
+geth_account_json: '{"account":"json_data"}'
+```
+
 For the rest see the [`defaults/main.yml`](/defaults/main.yml) config file.
 
 # Known Issues
