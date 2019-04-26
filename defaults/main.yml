@@ -1,7 +1,8 @@
 ---
-# Security
-geth_account_address: ~
-geth_account_password: ~
+# Security, json is optional
+geth_account_addr: ~
+geth_account_pass: ~
+geth_account_json: ~
 
 # Container config
 geth_cont_image: 'ethereum/client-go:v1.8.27'
@@ -10,6 +11,11 @@ geth_cont_name: 'geth'
 geth_cont_vol: '/docker/{{ geth_cont_name }}'
 geth_data_path: '{{ geth_cont_vol }}/data'
 geth_keys_path: '{{ geth_cont_vol }}/keys'
+# account
+geth_account_json_file: '{{ geth_keys_path }}/account.json'
+geth_account_pass_file: '{{ geth_keys_path }}/account.pass'
+geth_account_addr_file: '{{ geth_keys_path }}/account.addr'
+
 geth_enode_file: '{{ geth_keys_path }}/enode'
 geth_sync_check_script: '/usr/local/bin/check_geth_sync.sh'
 # RPC port of administration

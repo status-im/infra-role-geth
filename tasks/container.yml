@@ -36,9 +36,9 @@
       --cache={{ geth_cache }}
       --port={{ geth_port }}
       --nat=extip:{{ geth_public_addr }}
-      --unlock={{ geth_account_address }}
+      --unlock={{ geth_account_addr }}
       --datadir=/data
-      --password=/keys/password
+      --password=/keys/account.pass
       --keystore=/keys
       --rpc
       --rpcaddr=0.0.0.0

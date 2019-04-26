@@ -4,50 +4,78 @@
     path: '{{ geth_keys_path }}'
     state: directory
 
-- name: Geth | Find all account files
-  find:
-    paths: '{{ geth_keys_path }}'
-    patterns: 'UTC--*'
-    file_type: file
-  register: account_files
+- name: Geth | Check if account file exists
+  stat: 
+    path: '{{ geth_account_json_file }}'
+  register: account_file
+  when: geth_account_json is not defined
 
-- name: Geth | Set password to be empty
+- name: Geth | Create password file
   copy:
-    dest: '{{ geth_keys_path }}/password'
-    content: '{{ geth_account_password | mandatory }}'
+    dest: '{{ geth_account_pass_file }}'
+    content: '{{ geth_account_pass | mandatory }}'
+    owner: dockremap
+    group: docker
     mode: 0600
 
+- name: Geth | Write account JSON
+  copy:
+    dest: '{{ geth_account_json_file }}'
+    content: '{{ geth_account_json }}'
+    owner: dockremap
+    group: docker
+    mode: 0640
+  when: >
+    geth_account_json is defined and
+    geth_account_addr is defined
+
 - name: Geth | Generate account
-  docker_container:
-    name: '{{ geth_cont_name }}'
-    image: '{{ geth_cont_image }}'
-    pull: true
-    auto_remove: yes
-    command: |
-      account new
-      --keystore=/keys
-      --password=/keys/password
-    volumes:
-      - '{{ geth_cont_vol }}/keys:/keys:rw'
-  when: account_files.files | length == 0
+  block:
+    - name: Geth | Generate account JSON
+      docker_container:
+        name: '{{ geth_cont_name }}'
+        image: '{{ geth_cont_image }}'
+        pull: true
+        auto_remove: yes
+        command: |
+          account new
+          --keystore=/keys
+          --password=/keys/account.pass
+        volumes:
+          - '{{ geth_cont_vol }}/keys:/keys:rw'
+    
+    - name: Geth | Find newly generate account file
+      find:
+        paths: '{{ geth_keys_path }}'
+        patterns: 'UTC--*'
+        file_type: file
+      register: found_account_files
+    
+    - name: Geth | Rename generated account file
+      command: 'mv {{ found_account_files.files[0].path }} {{ geth_account_json_file }}'
 
-- name: Geth | Find all account files
-  find:
-    paths: '{{ geth_keys_path }}'
-    patterns: 'UTC--*'
-    file_type: file
-  register: account_files
+    - name: Geth | Save account address
+      slurp:
+        src: '{{ geth_account_json_file }}'
+      register: geth_account
+    
+    - name: Geth | Extract account address
+      set_fact:
+        geth_account_addr: '{{ (geth_account.content | b64decode | from_json)["address"] }}'
+  when: >
+    geth_account_json is not defined and
+    geth_account_addr is not defined and
+    account_file.stat.exists == False
 
-- name: Geth | Save account address
-  slurp:
-    src: '{{ account_files.files[0].path }}'
-  register: geth_account
-
-- name: Geth | Extract account address
-  set_fact:
-    geth_account_address: '{{ (geth_account.content | b64decode | from_json)["address"] }}'
+- name: Geth | Verify account data is available
+  assert:
+    that:
+      - geth_account_json is defined
+      - geth_account_addr is defined
 
 - name: Geth | Save account address to file
   copy:
-    dest: '{{ geth_keys_path }}/address'
-    content: '{{ geth_account_address | mandatory }}'
+    dest: '{{ geth_account_addr_file }}'
+    content: '{{ geth_account_addr | mandatory }}'
+    owner: dockremap
+    group: docker
