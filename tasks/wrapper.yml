@@ -1,0 +1,6 @@
+---
+- name: Create geth attach wrapper
+  template:
+    src: geth-attach-wrapper.sh
+    dest: /usr/local/bin/ageth
+    mode: 0755

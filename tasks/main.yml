@@ -2,6 +2,7 @@
 - import_tasks: generate.yml
 - import_tasks: container.yml
 - import_tasks: firewall.yml
+- import_tasks: wrapper.yml
 - import_tasks: save_enode.yml
 - import_tasks: consul.yml
   when: geth_consul_enabled
