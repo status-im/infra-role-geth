@@ -60,6 +60,7 @@ geth_cache: 1536
 geth_public_addr: '{{ ansible_host }}'
 
 # Consul config
+geth_consul_address: '{{ ansible_host }}'
 geth_consul_enabled: true
 geth_consul_default_tags:
   - geth

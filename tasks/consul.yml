@@ -21,6 +21,7 @@
       - name: '{{ geth_cont_name }}'
         tags: '{{ geth_consul_tags }}'
         port: '{{ geth_port }}'
+        address: '{{ geth_consul_address }}'
         meta:
           env: '{{ env }}'
           stage: '{{ stage }}'
