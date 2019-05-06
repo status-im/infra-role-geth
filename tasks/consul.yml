@@ -28,6 +28,17 @@
           node_addr: '{{ node_info.json.result.id }}'
           node_enode: '{{ node_info.json.result.enode }}'
         checks:
+          - id: '{{ geth_cont_name }}-status'
+            type: tcp
+            tcp: '127.0.0.1:{{ geth_port }}'
+      - name: '{{ geth_cont_name }}-rpc'
+        tags: '{{ geth_consul_tags + ["rpc"] }}'
+        port: '{{ geth_rpc_port }}'
+        address: '{{ geth_consul_rpc_address }}'
+        meta:
+          env: '{{ env }}'
+          stage: '{{ stage }}'
+        checks:
           - id: '{{ geth_cont_name }}-rpc-status'
             type: script
             script: '{{ geth_sync_check_script }}'
