@@ -31,9 +31,19 @@
       {% if geth_sync_mode != 'light' %}
       --lightserv={{ geth_light_serv }}
       {% endif %}
+      {% if geth_miner_enabled %}
+      --mine
+      --miner.threads="{{ geth_miner_threads }}"
+      --miner.etherbase="{{ geth_miner_account | mandatory }}"
+      {% endif %}
+      {% if geth_whisper_enabled %}
+      --shh 
+      --shh.pow={{ geth_whisper_pow }}
+      {% endif %}
       --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}
       --maxpeers={{ geth_max_peers }}
+      --maxpendpeers="{{ geth_max_pend_peers }}"
       --port={{ geth_port }}
       --nat=extip:{{ geth_public_addr }}
       --unlock={{ geth_account_addr }}
