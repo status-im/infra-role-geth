@@ -30,7 +30,6 @@
       --syncmode={{ geth_sync_mode }}
       {% if geth_sync_mode != 'light' %}
       --lightserv={{ geth_light_serv }}
-      --lightpeers={{ geth_light_peers }}
       {% endif %}
       --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}

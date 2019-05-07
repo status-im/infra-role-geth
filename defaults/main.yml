@@ -36,8 +36,6 @@ geth_sync_mode: 'light'
 geth_max_peers: 25
 # Maximum percentage of time allowed for serving LES requests (0-90)
 geth_light_serv: 90
-# Maximum number of LES client peers (default: 100)
-geth_light_peers: 200
 # Peer discovery protocol
 geth_v5disc_enabled: true
 
