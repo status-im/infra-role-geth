@@ -1,5 +1,6 @@
 ---
 - import_tasks: generate.yml
+- import_tasks: trusted_peers.yml
 - import_tasks: container.yml
 - import_tasks: firewall.yml
 - import_tasks: wrapper.yml

@@ -1,0 +1,9 @@
+---
+- name: Create a list of trusted peers
+  copy:
+    content: '{{ geth_trusted_peers | to_nice_json }}'
+    path: '{{ geth_trusted_peers_file }}'
+    owner: dockremap
+    group: docker
+    mode: 0600
+  when: geth_trusted_peers|length > 0
