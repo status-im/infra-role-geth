@@ -32,6 +32,8 @@ geth_aliases:
 
 # Sync mode: full, fast, light
 geth_sync_mode: 'light'
+# Maximum number of untrusted peers that can connect
+geth_max_peers: 25
 # Maximum percentage of time allowed for serving LES requests (0-90)
 geth_light_serv: 90
 # Maximum number of LES client peers (default: 100)

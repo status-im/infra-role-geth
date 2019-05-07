@@ -34,6 +34,7 @@
       {% endif %}
       --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}
+      --maxpeers={{ geth_max_peers }}
       --port={{ geth_port }}
       --nat=extip:{{ geth_public_addr }}
       --unlock={{ geth_account_addr }}
