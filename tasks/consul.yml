@@ -7,7 +7,9 @@
       #!/usr/bin/env bash
       set -e
       echo -n "Geth synced: "
-      RESP=$(curl -s -X POST -H 'Content-type:application/json' \
+      RESP=$(curl -s -X POST \
+                 --connect-timeout 5 \
+                 -H 'Content-type:application/json' \
                  --data '{"jsonrpc":"2.0","method":"eth_syncing","id":1}' \
                  http://localhost:{{ geth_rpc_port }}/)
       echo "${RESP}" | jq -e ".result == false" \
@@ -42,3 +44,4 @@
           - id: '{{ geth_cont_name }}-rpc-status'
             type: script
             script: '{{ geth_sync_check_script }}'
+            timeout: '5s'
