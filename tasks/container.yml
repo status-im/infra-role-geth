@@ -55,6 +55,7 @@
       --rpcport={{ geth_rpc_port }}
       --rpcvhosts={{ geth_aliases | join(",") }}
       --rpcapi={{ geth_rcp_api }}
+      --ipcpath={{ geth_ipc_path }}
     volumes:
       - '{{ geth_cont_vol }}/keys:/keys:rw'
       # WARNING: This assumes /data is mounted, see bootstrap role
