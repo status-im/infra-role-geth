@@ -40,6 +40,9 @@
       --shh 
       --shh.pow={{ geth_whisper_pow }}
       {% endif %}
+      {% if geth_metrics_enabled %}
+      --metrics
+      {% endif %}
       --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}
       --maxpeers={{ geth_max_peers }}

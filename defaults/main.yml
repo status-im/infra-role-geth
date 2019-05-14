@@ -46,6 +46,9 @@ geth_v5disc_enabled: true
 geth_trusted_peers: []
 geth_trusted_peers_file: '{{ geth_data_path }}/trusted-nodes.json'
 
+# Enable metrics
+geth_metrics_enabled: true
+
 # Mining settings
 geth_miner_enabled: false
 geth_miner_threads: '{{ ansible_processor_vcpus }}'
