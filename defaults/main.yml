@@ -68,7 +68,7 @@ geth_lov_level_names:
   detail: 5
 geth_log_level_name: 'info'
 geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
-# 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby
+# Available: ropsten/testnet, rinkeby, goerli
 geth_network_name: 'ropsten'
 
 # Port to listen on
