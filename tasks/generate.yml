@@ -1,8 +1,13 @@
 ---
 - name: Geth | Create keys directory
   file:
-    path: '{{ geth_keys_path }}'
+    path: '{{ item }}'
+    owner: dockremap
+    group: docker
     state: directory
+  with_items:
+    - '{{ geth_data_path }}'
+    - '{{ geth_keys_path }}'
 
 - name: Geth | Check if account file exists
   stat: 
