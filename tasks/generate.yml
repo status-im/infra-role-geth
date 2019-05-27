@@ -5,6 +5,7 @@
     owner: dockremap
     group: docker
     state: directory
+    recurse: true
   with_items:
     - '{{ geth_data_path }}'
     - '{{ geth_keys_path }}'
