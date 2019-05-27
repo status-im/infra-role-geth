@@ -1,5 +1,5 @@
 ---
-- name: Geth | Create keys directory
+- name: Geth | Create container directories
   file:
     path: '{{ item }}'
     owner: dockremap
