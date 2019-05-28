@@ -43,6 +43,7 @@
       {% if geth_metrics_enabled %}
       --metrics
       {% endif %}
+      --extradata={{ geth_extra_data }}
       --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}
       --maxpeers={{ geth_max_peers }}
