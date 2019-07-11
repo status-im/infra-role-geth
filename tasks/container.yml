@@ -29,7 +29,7 @@
       {% endif %}
       --syncmode={{ geth_sync_mode }}
       {% if geth_sync_mode != 'light' %}
-      --lightserv={{ geth_light_serv }}
+      --light.serve={{ geth_light_serv }}
       {% endif %}
       {% if geth_miner_enabled %}
       --mine
