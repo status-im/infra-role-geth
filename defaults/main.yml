@@ -8,7 +8,8 @@ geth_account_json: ~
 geth_extra_data: '{{ hostname }}'
 
 # Container config
-geth_cont_image: 'ethereum/client-go:v1.8.27'
+geth_cont_tag: 'v1.9.0'
+geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: 'geth'
 
 geth_cont_vol: '/docker/{{ geth_cont_name }}'
