@@ -51,6 +51,7 @@
       --port={{ geth_port }}
       --nat=extip:{{ geth_public_addr }}
       --unlock={{ geth_account_addr }}
+      --allow-insecure-unlock
       --datadir=/data
       --password=/keys/account.pass
       --keystore=/keys
