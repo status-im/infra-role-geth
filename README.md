@@ -18,8 +18,8 @@ Other important settings are:
 geth_cont_name: 'geth-mainnet'
 geth_network_name: 'mainnet'
 geth_sync_mode: 'full'
-geth_log_level: 3
-geth_consul_extra_tags: ["mytag"]
+geth_log_level_name: 'info'
+geth_consul_extra_tags: ['mytag']
 ```
 
 By default this role creates a new account.
