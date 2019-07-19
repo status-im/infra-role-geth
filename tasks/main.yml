@@ -1,4 +1,5 @@
 ---
+- import_tasks: checks.yml
 - import_tasks: generate.yml
 - import_tasks: trusted_peers.yml
 - import_tasks: container.yml
