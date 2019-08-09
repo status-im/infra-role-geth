@@ -21,7 +21,7 @@ geth_account_pass_file: '{{ geth_keys_path }}/account.pass'
 geth_account_addr_file: '{{ geth_keys_path }}/account.addr'
 
 geth_enode_file: '{{ geth_keys_path }}/enode'
-geth_sync_check_script: '/usr/local/bin/check_geth_sync.sh'
+geth_sync_check_script: '/usr/local/bin/check_sync_{{ geth_cont_name | replace("-", "_") }}.sh'
 # RPC port of administration
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
