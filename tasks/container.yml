@@ -43,6 +43,7 @@
       {% if geth_metrics_enabled %}
       --metrics
       {% endif %}
+      --nousb
       --extradata={{ geth_extra_data }}
       --verbosity={{ geth_log_level_id }} 
       --cache={{ geth_cache }}
