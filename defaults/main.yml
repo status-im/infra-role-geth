@@ -102,3 +102,4 @@ cont_swap_limit: '{{ (cont_mem_limit|int) + (ansible_swaptotal_mb * cont_mem_rat
 cont_state: started
 cont_restart: false
 cont_recreate: false
+cont_restart_policy: always

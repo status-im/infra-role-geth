@@ -5,7 +5,7 @@
     image: '{{ geth_cont_image }}'
     user: root
     pull: true
-    restart_policy: always
+    restart_policy: '{{ cont_restart_policy }}'
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
