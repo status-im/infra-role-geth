@@ -7,7 +7,7 @@
     chain: DOCKER-USER
     source: '0.0.0.0/0'
     protocol: '{{ item }}'
-    destination_port: '{{ geth_port }}'
+    destination_port: '{{ geth_port | string }}'
   with_items:
     - tcp
     - udp
