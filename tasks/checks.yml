@@ -4,4 +4,5 @@
     that:
       - cont_mem_limit > geth_cache
     fail_msg: 'Memory limit cant be lower than cache: {{ cont_mem_limit }} > {{ geth_cache }}'
-    success_msg: 'Memory limit is higher than cache size'
+    success_msg: 'Memory limit is higher than cache size: {{ cont_mem_limit }} > {{ geth_cache }}'
+    quiet: true
