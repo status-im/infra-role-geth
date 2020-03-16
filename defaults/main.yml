@@ -77,8 +77,6 @@ geth_network_name: 'ropsten'
 
 # Port to listen on
 geth_port: 30303
-# Memory to use
-geth_cache: 1536
 # Address to advertise
 geth_public_addr: '{{ ansible_host }}'
 
@@ -94,9 +92,13 @@ geth_consul_extra_tags: []
 geth_consul_tags: '{{ geth_consul_default_tags + geth_consul_extra_tags }}'
 
 # resources limits to avoid killing the host
-cont_mem_ratio: 0.7
-cont_mem_limit: '{{ (ansible_memtotal_mb * cont_mem_ratio|float) | int }}'
-cont_swap_limit: '{{ (cont_mem_limit|int) + (ansible_swaptotal_mb * cont_mem_ratio|float) | int }}'
+# Geth cache usage limit
+geth_cache_ratio: 0.4
+geth_cache_size: '{{ (ansible_memtotal_mb * geth_cache_ratio|float) | int }}'
+# Container memory limits
+geth_cont_mem_ratio: 0.6
+geth_cont_mem_limit: '{{ (ansible_memtotal_mb * geth_cont_mem_ratio|float) | int }}'
+geth_cont_swap_limit: '{{ (geth_cont_mem_limit|int) + (ansible_swaptotal_mb * geth_cont_mem_ratio|float) | int }}'
 
 # generic container beaviour
 cont_state: started

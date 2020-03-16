@@ -2,7 +2,7 @@
 - name: Verify memory and cache sizes
   assert:
     that:
-      - cont_mem_limit > geth_cache
-    fail_msg: 'Memory limit cant be lower than cache: {{ cont_mem_limit }} > {{ geth_cache }}'
-    success_msg: 'Memory limit is higher than cache size: {{ cont_mem_limit }} > {{ geth_cache }}'
+      - geth_cont_mem_limit|int > geth_cache_size|int
+    fail_msg: 'Memory limit cant be lower than cache: {{ geth_cont_mem_limit }} > {{ geth_cache_size }}'
+    success_msg: 'Memory limit is higher than cache size: {{ geth_cont_mem_limit }} > {{ geth_cache_size }}'
     quiet: true

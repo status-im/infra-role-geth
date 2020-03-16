@@ -10,8 +10,8 @@
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
     # some limits due to statusd hogging resources
-    memory: '{{ cont_mem_limit }}m'
-    memory_swap: '{{ cont_swap_limit }}m'
+    memory: '{{ geth_cont_mem_limit }}m'
+    memory_swap: '{{ geth_cont_swap_limit }}m'
     ports:
       - '{{ geth_port }}:{{ geth_port }}/tcp'
       - '{{ geth_port }}:{{ geth_port }}/udp'
@@ -46,7 +46,7 @@
       --nousb
       --extradata={{ geth_extra_data }}
       --verbosity={{ geth_log_level_id }} 
-      --cache={{ geth_cache }}
+      --cache={{ geth_cache_size }}
       --maxpeers={{ geth_max_peers }}
       --maxpendpeers="{{ geth_max_pend_peers }}"
       --port={{ geth_port }}
