@@ -32,11 +32,14 @@
     group: docker
     mode: 0640
   when: >
-    geth_account_addr is defined and
     geth_account_json is defined and
     geth_account_json != ""
 
 - name: Geth | Generate account
+  when: >
+    geth_account_json is not defined and
+    geth_account_addr is not defined and
+    not account_file.stat.exists
   block:
     - name: Geth | Generate account JSON
       docker_container:
@@ -58,21 +61,26 @@
         file_type: file
       register: found_account_files
     
-    - name: Geth | Rename generated account file
-      command: 'mv {{ found_account_files.files[0].path }} {{ geth_account_json_file }}'
+    - name: Geth | Symlink generated account file
+      file:
+        src: '{{ found_account_files.files[0].path }}'
+        dest: '{{ geth_account_json_file }}'
+        owner: dockremap
+        group: docker
+        state: link
 
     - name: Geth | Save account address
       slurp:
         src: '{{ geth_account_json_file }}'
       register: geth_account
-    
-    - name: Geth | Extract account address
+
+    - name: Geth | Extract account JSON
       set_fact:
-        geth_account_addr: '{{ (geth_account.content | b64decode | from_json)["address"] }}'
-  when: >
-    geth_account_json is not defined and
-    geth_account_addr is not defined and
-    account_file.stat.exists == False
+        geth_account_json: '{{ (geth_account.content | b64decode | from_json) }}'
+    
+- name: Geth | Extract account address
+  set_fact:
+    geth_account_addr: '{{ geth_account_json["address"] }}'
 
 - name: Geth | Verify account data is available
   assert:
