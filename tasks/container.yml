@@ -56,12 +56,14 @@
       --datadir=/data
       --password=/keys/account.pass
       --keystore=/keys
-      --rpc
-      --rpcaddr=0.0.0.0
-      --rpcport={{ geth_rpc_port }}
-      --rpcvhosts={{ geth_aliases | join(",") }}
-      --rpcapi={{ geth_rcp_api }}
+      {% if geth_rpc_enabled %}
+      --http
+      --http.addr=0.0.0.0
+      --http.port={{ geth_rpc_port }}
+      --http.vhosts={{ geth_aliases | join(",") }}
+      --http.api={{ geth_rcp_api }}
       --ipcpath={{ geth_ipc_path }}
+      {% endif %}
     volumes:
       - '{{ geth_cont_vol }}/keys:/keys:rw'
       # WARNING: This assumes /data is mounted, see bootstrap role

@@ -8,7 +8,7 @@
 geth_extra_data: '{{ hostname }}'
 
 # Container config
-geth_cont_tag: 'v1.9.12'
+geth_cont_tag: 'v1.9.14'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: 'geth'
 
@@ -23,9 +23,10 @@ geth_account_addr_file: '{{ geth_keys_path }}/account.addr'
 geth_enode_file: '{{ geth_keys_path }}/enode'
 geth_sync_check_script: '/usr/local/bin/check_sync_{{ geth_cont_name | replace("-", "_") }}.sh'
 # RPC port of administration
+geth_rpc_enabled: true
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
-geth_rcp_api: 'eth,net,web3,personal,shh,admin'
+geth_rcp_api: 'eth,net,web3,personal,admin'
 # Alternative IPC socket
 geth_ipc_path: '/data/geth.ipc'
 # useful for linking containers
