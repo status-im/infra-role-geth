@@ -73,8 +73,18 @@ geth_lov_level_names:
   detail: 5
 geth_log_level_name: 'info'
 geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
-# Available: ropsten/testnet, rinkeby, goerli
-geth_network_name: 'ropsten'
+
+# Mapping of network names to IDs for --networkid flag
+geth_network_ids:
+  frontier: 1
+  mainnet: 1
+  ropsten: 3
+  testnet: 3
+  rinkeby: 4
+  goerli: 5
+# Available: frontier/mainnet, ropsten/testnet, rinkeby, goerli
+geth_network_name: 'mainnet'
+geth_network_id: '{{ geth_network_ids[geth_network_name] }}'
 
 # Port to listen on
 geth_port: 30303
