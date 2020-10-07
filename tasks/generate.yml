@@ -57,10 +57,10 @@
     - name: Geth | Find newly generate account file
       find:
         paths: '{{ geth_keys_path }}'
-        patterns: 'UTC--*'
+        patterns: 'UTC*'
         file_type: file
       register: found_account_files
-    
+
     - name: Geth | Symlink generated account file
       file:
         src: '{{ found_account_files.files[0].path }}'
