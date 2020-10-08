@@ -72,6 +72,7 @@
 - name: Geth | Save account address
   slurp:
     src: '{{ geth_account_json_file }}'
+    mode: 0644
   when: geth_account_json is not defined
   register: geth_account
 
