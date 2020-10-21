@@ -63,7 +63,7 @@
 
     - name: Geth | Delay symlinking
       wait_for:
-        timeout: 1
+        timeout: 2
 
     - name: Geth | Symlink generated account file
       file:
