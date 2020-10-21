@@ -19,9 +19,10 @@
     labels:
       # These are just for documentation
       org.ethereum.geth.network_name: '{{ geth_network_name }}'
-      org.ethereum.geth.network_id: '{{ geth_network_id }}'
     command: |
-      --networkid={{ geth_network_id }}
+      {% if geth_network_name != "mainnet" %}
+      --{{ geth_network_name }}
+      {% endif %}
       {% if geth_v5disc_enabled %}
       --v5disc
       {% endif %}
