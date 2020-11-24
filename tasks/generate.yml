@@ -53,17 +53,17 @@
           --password=/keys/account.pass
         volumes:
           - '{{ geth_cont_vol }}/keys:/keys:rw'
-    
+
+    - name: Geth | Delay finding account file
+      wait_for:
+        timeout: 2
+
     - name: Geth | Find newly generate account file
       find:
         paths: '{{ geth_keys_path }}'
         patterns: 'UTC*'
         file_type: file
       register: found_account_files
-
-    - name: Geth | Delay symlinking
-      wait_for:
-        timeout: 2
 
     - name: Geth | Symlink generated account file
       file:
