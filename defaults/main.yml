@@ -8,7 +8,7 @@
 geth_extra_data: '{{ hostname }}'
 
 # Container config
-geth_cont_tag: 'v1.9.23'
+geth_cont_tag: 'v1.9.24'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: 'geth'
 
