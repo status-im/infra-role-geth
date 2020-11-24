@@ -45,3 +45,15 @@
             type: script
             script: '{{ geth_sync_check_script }}'
             timeout: '5s'
+      - name: '{{ geth_cont_name }}-ws'
+        tags: '{{ geth_consul_tags + ["websocket"] }}'
+        port: '{{ geth_websocket_port }}'
+        address: '{{ geth_consul_rpc_address }}'
+        meta:
+          env: '{{ env }}'
+          stage: '{{ stage }}'
+        checks:
+          - id: '{{ geth_cont_name }}-ws-status'
+            name: 'Geth WebSocket API'
+            type: 'tcp'
+            tcp: 'localhost:{{ geth_websocket_port }}'

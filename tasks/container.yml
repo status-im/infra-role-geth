@@ -15,6 +15,7 @@
     ports:
       - '{{ geth_port }}:{{ geth_port }}/tcp'
       - '{{ geth_port }}:{{ geth_port }}/udp'
+      - '{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
       - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}'
     labels:
       # These are just for documentation
@@ -64,6 +65,13 @@
       --http.vhosts={{ geth_aliases | join(",") }}
       --http.api={{ geth_rcp_api }}
       --ipcpath={{ geth_ipc_path }}
+      {% endif %}
+      {% if geth_websocket_enabled %}
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.port={{ geth_websocket_port }}
+      --ws.origins={{ geth_aliases | join(",") }}
+      --ws.api={{ geth_websocket_api }}
       {% endif %}
     volumes:
       - '{{ geth_cont_vol }}/keys:/keys:rw'

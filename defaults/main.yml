@@ -29,6 +29,10 @@ geth_rpc_port: 8545
 geth_rcp_api: 'eth,net,web3,personal,admin'
 # Alternative IPC socket
 geth_ipc_path: '/data/geth.ipc'
+# Web Sockets API
+geth_websocket_enabled: true
+geth_websocket_port: '{{ geth_rpc_port + 1 | int }}'
+geth_websocket_api: 'eth,net,web3,personal,admin'
 # useful for linking containers
 geth_extra_alias: geth
 geth_aliases:
