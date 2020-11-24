@@ -93,10 +93,8 @@ geth_consul_default_tags:
 geth_consul_extra_tags: []
 geth_consul_tags: '{{ geth_consul_default_tags + geth_consul_extra_tags }}'
 
-# resources limits to avoid killing the host
-# Geth cache usage limit
-geth_cache_ratio: 0.4
-geth_cache_size: '{{ (((ansible_memtotal_mb * geth_cache_ratio|float) / 1204) | round | int) * 1024 | int }}'
+# Geth cache size. WARNING: Values higher than 1GB cause issues.
+geth_cache_size: ~
 # Container memory limits
 geth_cont_mem_ratio: 0.6
 geth_cont_mem_limit: '{{ (ansible_memtotal_mb * geth_cont_mem_ratio|float) | int }}'

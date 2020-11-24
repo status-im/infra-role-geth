@@ -42,10 +42,12 @@
       {% if geth_metrics_enabled %}
       --metrics
       {% endif %}
+      {% if geth_cache_size %}
+      --cache={{ geth_cache_size }}
+      {% endif %}
       --nousb
       --extradata={{ geth_extra_data }}
       --verbosity={{ geth_log_level_id }} 
-      --cache={{ geth_cache_size }}
       --maxpeers={{ geth_max_peers }}
       --maxpendpeers="{{ geth_max_pend_peers }}"
       --port={{ geth_port }}

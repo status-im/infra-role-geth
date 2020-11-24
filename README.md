@@ -39,4 +39,5 @@ For the rest see the [`defaults/main.yml`](/defaults/main.yml) config file.
 
 # Known Issues
 
-Currently only 3 networks are supported: `mainnet`, `ropsten`, and `goerli`
+* Currently only 3 networks are supported: `mainnet`, `ropsten`, `goerli`, and `yolov1`.
+* Setting `--cache` values higher than 1/3rd of available memory will cause trouble syncing.
