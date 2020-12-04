@@ -70,8 +70,8 @@
       --ws
       --ws.addr=0.0.0.0
       --ws.port={{ geth_websocket_port }}
-      --ws.origins={{ geth_aliases | join(",") }}
       --ws.api={{ geth_websocket_api }}
+      --ws.origins='{{ geth_websocket_origins }}'
       {% endif %}
     volumes:
       - '{{ geth_cont_vol }}/keys:/keys:rw'
