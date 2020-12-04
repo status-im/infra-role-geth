@@ -26,6 +26,7 @@ geth_sync_check_script: '/usr/local/bin/check_sync_{{ geth_cont_name | replace("
 geth_rpc_enabled: true
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
+# Available: admin, clique, debug, eth, les, miner, net, personal, rpc, txpool, web3
 geth_rcp_api: 'eth,net,web3,personal,admin'
 # Alternative IPC socket
 geth_ipc_path: '/data/geth.ipc'
@@ -40,6 +41,7 @@ geth_aliases:
   - '{{ geth_extra_alias }}'
   - '{{ hostname }}'
   - '{{ hostname }}.tinc'
+  - '{{ ansible_local.tinc.vpn_ip }}'
 
 # Sync mode: full, fast, light
 geth_sync_mode: 'light'
