@@ -73,6 +73,9 @@
       --ws.api={{ geth_websocket_api }}
       --ws.origins='{{ geth_websocket_origins }}'
       {% endif %}
+      {% if (geth_bootnodes|length) > 0 %}
+      --bootnodes="{{ geth_bootnodes | join(',') }}"
+      {% endif %}
     volumes:
       - '{{ geth_cont_vol }}/keys:/keys:rw'
       # WARNING: This assumes /data is mounted, see bootstrap role
