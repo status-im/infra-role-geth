@@ -4,11 +4,8 @@
 #geth_account_pass: ~
 #geth_account_json: ~
 
-# Geth miner extra data
-geth_extra_data: '{{ hostname }}'
-
 # Container config
-geth_cont_tag: 'v1.9.25'
+geth_cont_tag: 'v1.10.1'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: 'geth'
 

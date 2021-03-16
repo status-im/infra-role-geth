@@ -47,7 +47,6 @@
       --cache={{ geth_cache_size }}
       {% endif %}
       --nousb
-      --extradata={{ geth_extra_data }}
       --verbosity={{ geth_log_level_id }} 
       --maxpeers={{ geth_max_peers }}
       --maxpendpeers="{{ geth_max_pend_peers }}"
