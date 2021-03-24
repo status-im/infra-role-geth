@@ -50,6 +50,7 @@ geth_max_pend_peers: 30
 # Maximum percentage of time allowed for serving LES requests (0-90)
 geth_light_serv: 90
 # Peer discovery protocol
+geth_discovery_enabled: true
 geth_v5disc_enabled: true
 # List of trusted peers to connect to
 geth_trusted_peers: []
