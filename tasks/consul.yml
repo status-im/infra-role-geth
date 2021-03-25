@@ -1,20 +1,4 @@
 ---
-- name: Geth | Create sync check script
-  copy:
-    dest: '{{ geth_sync_check_script }}'
-    mode: 0755
-    content: |
-      #!/usr/bin/env bash
-      set -e
-      echo -n "Geth synced: "
-      RESP=$(curl -s -X POST \
-                 --connect-timeout 5 \
-                 -H 'Content-type:application/json' \
-                 --data '{"jsonrpc":"2.0","method":"eth_syncing","id":1}' \
-                 http://localhost:{{ geth_rpc_port }}/)
-      echo "${RESP}" | jq -e ".result == false" \
-          || ( echo "${RESP}" | jq . ; exit 1 )
-
 - name: Geth | Create Consul service definition
   include_role: name=consul-service
   vars:
@@ -43,8 +27,8 @@
           stage: '{{ stage }}'
         checks:
           - id: '{{ geth_cont_name }}-rpc-status'
-            type: script
-            script: '{{ geth_sync_check_script }}'
+            type: 'script'
+            script: '{{ geth_service_path }}/rpc.sh eth_syncing'
             timeout: '5s'
 
       - name: '{{ geth_cont_name }}-ws'
