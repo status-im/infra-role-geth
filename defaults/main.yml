@@ -61,6 +61,7 @@ geth_bootnodes: []
 
 # Enable metrics
 geth_metrics_enabled: true
+geth_metrics_port: 6060
 
 # Mining settings
 geth_miner_enabled: false

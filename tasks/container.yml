@@ -15,6 +15,7 @@
     ports:
       - '{{ geth_port }}:{{ geth_port }}/tcp'
       - '{{ geth_port }}:{{ geth_port }}/udp'
+      - '{{ geth_metrics_port }}:{{ geth_metrics_port }}/tcp'
       - '{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
       - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}'
     labels:
@@ -45,6 +46,8 @@
       {% endif %}
       {% if geth_metrics_enabled %}
       --metrics
+      --metrics.addr=0.0.0.0
+      --metrics.port={{ geth_metrics_port }}
       {% endif %}
       {% if geth_cache_size %}
       --cache={{ geth_cache_size }}
