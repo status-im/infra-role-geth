@@ -2,7 +2,7 @@
 - name: Create Geth console attach wrapper
   template:
     src: 'attach.sh.j2'
-    dest: '{{ geth_cont_vol }}/attach.sh'
+    dest: '{{ geth_service_path }}/attach.sh'
     owner: 'root'
     group: 'docker'
     mode: 0750
@@ -10,7 +10,7 @@
 - name: Create Geth JSON RPC wrapper script
   template:
     src: 'rpc.sh.j2'
-    dest: '{{ geth_cont_vol }}/rpc.sh'
+    dest: '{{ geth_service_path }}/rpc.sh'
     owner: 'root'
     group: 'docker'
     mode: 0750
