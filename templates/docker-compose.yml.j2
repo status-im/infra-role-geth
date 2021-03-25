@@ -55,7 +55,7 @@ services:
       --http
       --http.addr=0.0.0.0
       --http.port={{ geth_rpc_port }}
-      --http.vhosts={{ geth_aliases | join(",") }}
+      --http.vhosts={{ geth_rpc_vhosts | join(",") }}
       --http.api={{ geth_rcp_api }}
       --ipcpath=/data/geth.ipc
 {% endif %}
@@ -70,7 +70,7 @@ services:
       --bootnodes="{{ geth_bootnodes | join(',') }}"
 {% endif %}
       --nousb
-      --verbosity={{ geth_log_level_id }} 
+      --verbosity={{ geth_log_level_id }}
       --maxpeers={{ geth_max_peers }}
       --maxpendpeers="{{ geth_max_pend_peers }}"
       --port={{ geth_port }}
