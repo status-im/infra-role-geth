@@ -5,10 +5,9 @@
     owner: dockremap
     group: docker
     state: directory
-    recurse: true
   with_items:
-    - '{{ geth_data_path }}'
-    - '{{ geth_keys_path }}'
+    - '{{ geth_cont_vol }}/data'
+    - '{{ geth_cont_vol }}/keys'
 
 - name: Geth | Check if account file exists
   stat: 
@@ -60,7 +59,7 @@
 
     - name: Geth | Find newly generate account file
       find:
-        paths: '{{ geth_keys_path }}'
+        paths: '{{ geth_cont_vol }}/keys'
         patterns: 'UTC*'
         file_type: file
       register: found_account_files

@@ -18,37 +18,39 @@
 - name: Geth | Create Consul service definition
   include_role: name=consul-service
   vars:
-    consul_config_name: '{{ geth_cont_name | replace("-", "_") }}'
+    consul_config_name: '{{ geth_service_name | replace("-", "_") }}'
     consul_services:
-      - name: '{{ geth_cont_name }}'
+      - name: '{{ geth_service_name }}'
         tags: '{{ geth_consul_tags }}'
         port: '{{ geth_port }}'
-        address: '{{ geth_consul_address }}'
+        address: '{{ ansible_host }}'
         meta:
           env: '{{ env }}'
           stage: '{{ stage }}'
           node_addr: '{{ node_info.json.result.id }}'
           node_enode: '{{ node_info.json.result.enode }}'
         checks:
-          - id: '{{ geth_cont_name }}-status'
+          - id: '{{ geth_service_name }}-status'
             type: tcp
             tcp: '127.0.0.1:{{ geth_port }}'
-      - name: '{{ geth_cont_name }}-rpc'
+
+      - name: '{{ geth_service_name }}-rpc'
         tags: '{{ geth_consul_tags + ["rpc"] }}'
         port: '{{ geth_rpc_port }}'
-        address: '{{ geth_consul_rpc_address }}'
+        address: '{{ ansible_local.tinc.vpn_ip }}'
         meta:
           env: '{{ env }}'
           stage: '{{ stage }}'
         checks:
-          - id: '{{ geth_cont_name }}-rpc-status'
+          - id: '{{ geth_service_name }}-rpc-status'
             type: script
             script: '{{ geth_sync_check_script }}'
             timeout: '5s'
-      - name: '{{ geth_cont_name }}-ws'
+
+      - name: '{{ geth_service_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
         port: '{{ geth_websocket_port }}'
-        address: '{{ geth_consul_rpc_address }}'
+        address: '{{ ansible_local.tinc.vpn_ip }}'
         meta:
           env: '{{ env }}'
           stage: '{{ stage }}'

@@ -1,32 +1,37 @@
 ---
+geth_service_name: 'geth'
+geth_service_path: '/docker/{{ geth_service_name }}'
+geth_compose_path: '{{ geth_service_path }}/docker-compose.yml'
+
 # Security, json is optional
 #geth_account_addr: ~
 #geth_account_pass: ~
 #geth_account_json: ~
 
+# account
+geth_account_json_file: '{{ geth_cont_vol }}/keys/account.json'
+geth_account_pass_file: '{{ geth_cont_vol }}/keys/account.pass'
+geth_account_addr_file: '{{ geth_cont_vol }}/keys/account.addr'
+
 # Container config
 geth_cont_tag: 'v1.10.1'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
-geth_cont_name: 'geth'
+geth_cont_name: '{{ geth_service_name }}-node'
+geth_cont_vol: '{{ geth_service_path }}/node'
 
-geth_cont_vol: '/docker/{{ geth_cont_name }}'
-geth_data_path: '{{ geth_cont_vol }}/data'
-geth_keys_path: '{{ geth_cont_vol }}/keys'
-# account
-geth_account_json_file: '{{ geth_keys_path }}/account.json'
-geth_account_pass_file: '{{ geth_keys_path }}/account.pass'
-geth_account_addr_file: '{{ geth_keys_path }}/account.addr'
-
-geth_enode_file: '{{ geth_keys_path }}/enode'
+geth_enode_file: '{{ geth_cont_vol }}/keys/enode'
 geth_sync_check_script: '/usr/local/bin/check_sync_{{ geth_cont_name | replace("-", "_") }}.sh'
+
+# Enable metrics
+geth_metrics_enabled: true
+geth_metrics_port: 6060
+
 # RPC port of administration
 geth_rpc_enabled: true
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
 # Available: admin, clique, debug, eth, les, miner, net, personal, rpc, txpool, web3
 geth_rcp_api: 'eth,net,web3,personal,admin'
-# Alternative IPC socket
-geth_ipc_path: '/data/geth.ipc'
 # Web Sockets API
 geth_websocket_enabled: true
 geth_websocket_port: '{{ geth_rpc_port + 1 | int }}'
@@ -54,14 +59,10 @@ geth_discovery_enabled: true
 geth_v5disc_enabled: true
 # List of trusted peers to connect to
 geth_trusted_peers: []
-geth_trusted_peers_file: '{{ geth_data_path }}/trusted-nodes.json'
+geth_trusted_peers_file: '{{ geth_cont_vol }}/data/trusted-nodes.json'
 
 # Custom bootnodes
 geth_bootnodes: []
-
-# Enable metrics
-geth_metrics_enabled: true
-geth_metrics_port: 6060
 
 # Mining settings
 geth_miner_enabled: false
@@ -92,8 +93,6 @@ geth_port: 30303
 geth_public_addr: '{{ ansible_host }}'
 
 # Consul config
-geth_consul_address: '{{ ansible_host }}'
-geth_consul_rpc_address: '{{ ansible_local.tinc.vpn_ip }}'
 geth_consul_enabled: true
 geth_consul_default_tags:
   - geth
@@ -109,8 +108,7 @@ geth_cont_mem_ratio: 0.6
 geth_cont_mem_limit: '{{ (ansible_memtotal_mb * geth_cont_mem_ratio|float) | int }}'
 geth_cont_swap_limit: '{{ (geth_cont_mem_limit|int) + (ansible_swaptotal_mb * geth_cont_mem_ratio|float) | int }}'
 
-# generic container beaviour
-cont_state: started
-cont_restart: false
-cont_recreate: false
-cont_restart_policy: always
+# general container management
+compose_recreate: 'smart'
+compose_state: 'present'
+compose_restart: false

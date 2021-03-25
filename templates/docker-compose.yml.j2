@@ -1,0 +1,82 @@
+---
+version: '3.7'
+services:
+  geth:
+    container_name: '{{ geth_cont_name }}'
+    image: '{{ geth_cont_image }}'
+    user: root
+    restart: 'always'
+    mem_limit: '{{ geth_cont_mem_limit }}m'
+    memswap_limit: '{{ geth_cont_swap_limit }}m'
+    ports:
+      - '{{ geth_port }}:{{ geth_port }}/tcp'
+      - '{{ geth_port }}:{{ geth_port }}/udp'
+      - '{{ geth_metrics_port }}:{{ geth_metrics_port }}/tcp'
+      - '{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
+      - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}'
+    labels:
+      # These are just for documentation
+      org.ethereum.geth.network_name: '{{ geth_network_name }}'
+    volumes:
+      - '{{ geth_cont_vol }}/keys:/keys:rw'
+      - '{{ geth_cont_vol }}/data:/data:rw'
+    command: |
+{% if geth_network_name != "mainnet" %}
+      --{{ geth_network_name }}
+{% endif %}
+{% if not geth_discovery_enabled %}
+      --nodiscover
+{% endif %}
+{% if geth_v5disc_enabled %}
+      --v5disc
+{% endif %}
+      --syncmode={{ geth_sync_mode }}
+{% if geth_sync_mode != 'light' %}
+      --light.serve={{ geth_light_serv }}
+{% endif %}
+{% if geth_miner_enabled %}
+      --mine
+      --miner.threads="{{ geth_miner_threads }}"
+      --miner.etherbase="{{ geth_miner_account | mandatory }}"
+{% endif %}
+{% if geth_whisper_enabled %}
+      --shh 
+      --shh.pow={{ geth_whisper_pow }}
+{% endif %}
+{% if geth_metrics_enabled %}
+      --metrics
+      --metrics.addr=0.0.0.0
+      --metrics.port={{ geth_metrics_port }}
+{% endif %}
+{% if geth_cache_size %}
+      --cache={{ geth_cache_size }}
+{% endif %}
+{% if geth_rpc_enabled %}
+      --http
+      --http.addr=0.0.0.0
+      --http.port={{ geth_rpc_port }}
+      --http.vhosts={{ geth_aliases | join(",") }}
+      --http.api={{ geth_rcp_api }}
+      --ipcpath=/data/geth.ipc
+{% endif %}
+{% if geth_websocket_enabled %}
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.port={{ geth_websocket_port }}
+      --ws.api={{ geth_websocket_api }}
+      --ws.origins='{{ geth_websocket_origins }}'
+{% endif %}
+{% if (geth_bootnodes|length) > 0 %}
+      --bootnodes="{{ geth_bootnodes | join(',') }}"
+{% endif %}
+      --nousb
+      --verbosity={{ geth_log_level_id }} 
+      --maxpeers={{ geth_max_peers }}
+      --maxpendpeers="{{ geth_max_pend_peers }}"
+      --port={{ geth_port }}
+      --nat=extip:{{ geth_public_addr }}
+      --unlock={{ geth_account_addr }}
+      --allow-insecure-unlock
+      --datadir=/data
+      --password=/keys/account.pass
+      --keystore=/keys
