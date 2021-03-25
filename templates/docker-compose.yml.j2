@@ -6,8 +6,10 @@ services:
     image: '{{ geth_cont_image }}'
     user: root
     restart: 'always'
-    mem_limit: '{{ geth_cont_mem_limit }}m'
-    memswap_limit: '{{ geth_cont_swap_limit }}m'
+    deploy:
+      resources:
+        limits:
+          memory: '{{ geth_cont_mem_limit }}m'
     ports:
       - '{{ geth_port }}:{{ geth_port }}/tcp'
       - '{{ geth_port }}:{{ geth_port }}/udp'
