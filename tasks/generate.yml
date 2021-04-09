@@ -72,7 +72,7 @@
         group: docker
         state: link
 
-- name: Geth | Save account address
+- name: Geth | Read account address
   slurp:
     src: '{{ geth_account_json_file }}'
   when: geth_account_json is not defined
