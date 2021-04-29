@@ -2,7 +2,7 @@
 # vim: set ft=sh:
 set -euo pipefail
 
-URL="http://localhost:{{ geth_rpc_port }}/"
+URL="http://{{ geth_rpc_addr }}:{{ geth_rpc_port }}/"
 
 METHOD="$1"
 shift
