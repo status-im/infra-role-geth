@@ -61,6 +61,8 @@ geth_v5disc_enabled: true
 # List of trusted peers to connect to
 geth_trusted_peers: []
 geth_trusted_peers_file: '{{ geth_cont_vol }}/data/trusted-nodes.json'
+# Any additional flags you want to provide
+geth_extra_flags: []
 
 # Custom bootnodes
 geth_bootnodes: []

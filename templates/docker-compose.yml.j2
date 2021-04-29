@@ -82,3 +82,6 @@ services:
       --datadir=/data
       --password=/keys/account.pass
       --keystore=/keys
+{% for extra_flag in geth_extra_flags %}
+      {{ extra_flag }}
+{% endfor %}
