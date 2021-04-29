@@ -1,0 +1,42 @@
+---
+- name: Download genesis config file
+  get_url:
+    url: '{{ geth_init_url | mandatory }}'
+    dest: '{{ geth_init_genesis_path | mandatory }}'
+    checksum: 'sha256: {{ geth_init_sha256 | mandatory }}'
+    owner: dockremap
+    group: docker
+    mode: 0644
+
+- name: Check if chaindata was created
+  stat:
+    path: '{{ geth_cont_vol }}/data/geth/chaindata'
+  register: geth_chaindata_dir_before
+
+- name: Initialize network definition
+  when: not geth_chaindata_dir_before.stat.exists
+  block:
+    - name: Run init command with config
+      docker_container:
+        name: '{{ geth_cont_name }}-init'
+        image: '{{ geth_cont_image }}'
+        user: root
+        detach: false
+        auto_remove: true
+        volumes:
+          - '{{ geth_cont_vol }}/keys:/keys:rw'
+          - '{{ geth_cont_vol }}/data:/data:rw'
+          - '{{ geth_init_genesis_path }}:/genesis.json:rw'
+        command: |
+          {{ geth_extra_flags | join(" ") }} --datadir=/data init /genesis.json
+
+    - name: Check if chaindata was created
+      stat:
+        path: '{{ geth_cont_vol }}/data/geth/chaindata'
+      register: geth_chaindata_dir_after
+
+    - name: Verify chaindata folder was created
+      assert:
+        that: '{{ geth_chaindata_dir_after.stat.exists }}'
+        fail_msg: 'Failed to init node genesis state!'
+        quiet: true

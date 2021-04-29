@@ -47,7 +47,7 @@ geth_websocket_port: '{{ geth_rpc_port + 1 | int }}'
 geth_websocket_api: 'eth,net,web3,personal,admin'
 geth_websocket_origins: 'localhost'
 
-# Sync mode: full, fast, light
+# Sync mode: full, fast, light, snap
 geth_sync_mode: 'light'
 # Maximum number of untrusted peers that can connect
 geth_max_peers: 50
@@ -63,6 +63,12 @@ geth_trusted_peers: []
 geth_trusted_peers_file: '{{ geth_cont_vol }}/data/trusted-nodes.json'
 # Any additional flags you want to provide
 geth_extra_flags: []
+
+# Some custom testnets require a custom init
+geth_init_enabled: false
+geth_init_genesis_path: '{{ geth_cont_vol }}/genesis.json'
+#geth_init_url: ~
+#geth_init_sha256: ~
 
 # Custom bootnodes
 geth_bootnodes: []

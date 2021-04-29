@@ -44,6 +44,7 @@
       docker_container:
         name: '{{ geth_cont_name }}'
         image: '{{ geth_cont_image }}'
+        detach: false
         pull: true
         auto_remove: yes
         command: |

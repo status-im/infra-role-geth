@@ -2,6 +2,8 @@
 - import_tasks: checks.yml
 - import_tasks: generate.yml
 - import_tasks: trusted_peers.yml
+- import_tasks: init.yml
+  when: geth_init_enabled
 - import_tasks: container.yml
 - import_tasks: firewall.yml
 - import_tasks: wrappers.yml
