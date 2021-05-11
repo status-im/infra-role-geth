@@ -12,8 +12,8 @@ if [[ -z "${METHOD}" ]]; then
     exit 1
 fi
 if [[ -n "${@}" ]]; then
-    PARAMS=$(printf '%s\",\"' "${@}")
-    PARAMS="\"${PARAMS_STR%%\",\"}\""
+    PARAMS=$(printf '%s,' "${@}")
+    PARAMS="${@%%,}"
 else
     PARAMS=''
 fi
