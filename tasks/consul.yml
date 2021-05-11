@@ -28,7 +28,7 @@
         checks:
           - id: '{{ geth_cont_name }}-rpc-status'
             type: 'script'
-            script: '{{ geth_service_path }}/rpc.sh eth_syncing'
+            script: '{{ geth_rpc_wrapper }} eth_syncing'
             timeout: '5s'
 
       - name: '{{ geth_cont_name }}-ws'

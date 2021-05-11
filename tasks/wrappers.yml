@@ -10,7 +10,7 @@
 - name: Create Geth JSON RPC wrapper script
   template:
     src: 'rpc.sh.j2'
-    dest: '{{ geth_service_path }}/rpc.sh'
+    dest: '{{ geth_rpc_wrapper }}'
     owner: 'root'
     group: 'docker'
     mode: 0750
