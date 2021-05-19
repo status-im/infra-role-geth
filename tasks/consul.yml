@@ -21,7 +21,7 @@
       - name: '{{ geth_cont_name }}-rpc'
         tags: '{{ geth_consul_tags + ["rpc"] }}'
         port: '{{ geth_rpc_port }}'
-        address: '{{ ansible_local.tinc.vpn_ip }}'
+        address: '{{ ansible_local.wireguard.vpn_ip }}'
         meta:
           env: '{{ env }}'
           stage: '{{ stage }}'
@@ -34,7 +34,7 @@
       - name: '{{ geth_cont_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
         port: '{{ geth_websocket_port }}'
-        address: '{{ ansible_local.tinc.vpn_ip }}'
+        address: '{{ ansible_local.wireguard.vpn_ip }}'
         meta:
           env: '{{ env }}'
           stage: '{{ stage }}'
