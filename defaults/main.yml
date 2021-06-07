@@ -42,7 +42,7 @@ geth_rpc_vhosts:
   - '{{ hostname }}.wg'
   - '{{ ansible_local.wireguard.vpn_ip }}'
 # Wrapper for easier RPC usage
-get_rpc_wrapper: '{{ geth_service_path }}/rpc.sh'
+geth_rpc_wrapper: '{{ geth_service_path }}/rpc.sh'
 # Web Sockets API
 geth_websocket_enabled: true
 geth_websocket_port: '{{ geth_rpc_port + 1 | int }}'
