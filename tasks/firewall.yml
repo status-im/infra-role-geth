@@ -2,9 +2,8 @@
 - name: Geth | Enable ports on firewall
   iptables:
     comment: '{{ geth_cont_name }} {{ item }}'
-    jump: ACCEPT
-    action: insert
-    chain: DOCKER-USER
+    jump: 'ACCEPT'
+    chain: 'SERVICES'
     source: '0.0.0.0/0'
     protocol: '{{ item }}'
     destination_port: '{{ geth_port | string }}'
