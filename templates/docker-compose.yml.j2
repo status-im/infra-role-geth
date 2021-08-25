@@ -14,8 +14,8 @@ services:
       - '{{ geth_port }}:{{ geth_port }}/tcp'
       - '{{ geth_port }}:{{ geth_port }}/udp'
       - '{{ geth_metrics_port }}:{{ geth_metrics_port }}/tcp'
-      - '{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
-      - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}'
+      - '{{ geth_websocket_addr }}:{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
+      - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}/tcp'
     labels:
       # These are just for documentation
       org.ethereum.geth.network_name: '{{ geth_network_name }}'
