@@ -30,6 +30,7 @@
             type: 'script'
             script: '{{ geth_rpc_wrapper }} eth_syncing'
             timeout: '5s'
+            failures_before_critical: 3
 
       - name: '{{ geth_cont_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
@@ -43,3 +44,4 @@
             name: 'Geth WebSocket API'
             type: 'tcp'
             tcp: 'localhost:{{ geth_websocket_port }}'
+            failures_before_critical: 3
