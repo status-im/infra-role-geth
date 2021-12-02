@@ -9,8 +9,6 @@
         port: '{{ geth_port }}'
         address: '{{ ansible_host }}'
         meta:
-          env: '{{ env }}'
-          stage: '{{ stage }}'
           node_addr: '{{ node_info.json.result.id }}'
           node_enode: '{{ node_info.json.result.enode }}'
         checks:
@@ -21,10 +19,9 @@
       - name: '{{ geth_cont_name }}-rpc'
         tags: '{{ geth_consul_tags + ["rpc"] }}'
         port: '{{ geth_rpc_port }}'
-        address: '{{ ansible_local.wireguard.vpn_ip }}'
+        address: '{{ ansible_local.wireguard.address }}'
         meta:
-          env: '{{ env }}'
-          stage: '{{ stage }}'
+          url: 'http://{{ ansible_local.wireguard.address }}:{{ geth_rpc_port }}'
         checks:
           - id: '{{ geth_cont_name }}-rpc-status'
             type: 'script'
@@ -35,10 +32,9 @@
       - name: '{{ geth_cont_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
         port: '{{ geth_websocket_port }}'
-        address: '{{ ansible_local.wireguard.vpn_ip }}'
+        address: '{{ ansible_local.wireguard.address }}'
         meta:
-          env: '{{ env }}'
-          stage: '{{ stage }}'
+          url: 'ws://{{ ansible_local.wireguard.address }}:{{ geth_websocket_port }}'
         checks:
           - id: '{{ geth_cont_name }}-ws-status'
             name: 'Geth WebSocket API'
