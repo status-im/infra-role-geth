@@ -96,8 +96,9 @@ geth_lov_level_names:
 geth_log_level_name: 'info'
 geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
 
-# Available: mainnet, goerli, rinkeby, yolov1, ropsten
+# Available: mainnet, goerli, rinkeby, ropsten, sepolia
 geth_network_name: 'mainnet'
+#geth_network_id: ~
 
 # Port to listen on
 geth_port: 30303

@@ -23,7 +23,9 @@ services:
       - '{{ geth_cont_vol }}/keys:/keys:rw'
       - '{{ geth_cont_vol }}/data:/data:rw'
     command: |
-{% if geth_network_name != "mainnet" %}
+{% if geth_network_id is defined %}
+      --networkid={{ geth_network_id }}
+{% elif geth_network_name != "mainnet" %}
       --{{ geth_network_name }}
 {% endif %}
 {% if not geth_discovery_enabled %}
