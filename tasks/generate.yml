@@ -87,6 +87,7 @@
 - name: Geth | Extract account address
   set_fact:
     geth_account_addr: '{{ geth_account_json["address"] }}'
+  when: geth_account_addr is not defined
 
 - name: Geth | Verify account data is available
   assert:
