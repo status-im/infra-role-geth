@@ -2,7 +2,8 @@
 - name: Geth | Consul | Define services
   set_fact:
     consul_services:
-      - name: '{{ geth_cont_name }}'
+      - id:   '{{ geth_cont_name }}'
+        name: '{{ geth_consul_service_name }}'
         tags: '{{ geth_consul_tags }}'
         port: '{{ geth_port }}'
         address: '{{ ansible_host }}'
@@ -14,7 +15,8 @@
             type: tcp
             tcp: '127.0.0.1:{{ geth_port }}'
 
-      - name: '{{ geth_cont_name }}-rpc'
+      - id:   '{{ geth_cont_name }}-rpc'
+        name: '{{ geth_consul_service_name }}-rpc'
         tags: '{{ geth_consul_tags + ["rpc"] }}'
         port: '{{ geth_rpc_port }}'
         address: '{{ ansible_local.wireguard.address }}'
@@ -27,7 +29,8 @@
             timeout: '5s'
             failures_before_critical: 3
 
-      - name: '{{ geth_cont_name }}-ws'
+      - id:   '{{ geth_cont_name }}-ws'
+        name: '{{ geth_consul_service_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
         port: '{{ geth_websocket_port }}'
         address: '{{ ansible_local.wireguard.address }}'
