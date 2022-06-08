@@ -30,8 +30,8 @@ geth_metrics_port: 6060
 geth_rpc_enabled: true
 geth_rpc_addr: '127.0.0.1'
 geth_rpc_port: 8545
-# Available: admin, clique, debug, eth, les, miner, net, personal, rpc, txpool, web3
-geth_rcp_api: 'eth,net,web3,personal,admin'
+# Available: admin, clique, debug, eth, les, miner, net, personal, rpc, txpool, web3, engine
+geth_rcp_api: 'eth,net,web3,personal,admin,engine'
 # useful for linking containers
 geth_rpc_extra_vhost: geth
 geth_rpc_vhosts:
