@@ -47,7 +47,7 @@ geth_rpc_wrapper: '{{ geth_service_path }}/rpc.sh'
 geth_websocket_enabled: true
 geth_websocket_addr: '127.0.0.1'
 geth_websocket_port: '{{ geth_rpc_port + 1 | int }}'
-geth_websocket_api: 'eth,net,web3,personal,admin'
+geth_websocket_api: 'eth,net,web3,personal,admin,engine'
 geth_websocket_origins: 'localhost'
 
 # Sync mode: full, fast, light, snap
