@@ -99,5 +99,12 @@
   copy:
     dest: '{{ geth_account_addr_file }}'
     content: '{{ geth_account_addr | mandatory }}'
-    owner: dockremap
-    group: docker
+    owner: 'dockremap'
+    group: 'docker'
+
+- name: Geth | Create JWT secret file
+  copy:
+    dest: '{{ geth_authrpc_jwtsecret_file }}'
+    content: '{{ geth_authrpc_jwtsecret | mandatory }}'
+    owner: 'dockremap'
+    group: 'docker'

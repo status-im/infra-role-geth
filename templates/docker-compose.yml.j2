@@ -16,6 +16,7 @@ services:
       - '{{ geth_metrics_port }}:{{ geth_metrics_port }}/tcp'
       - '{{ geth_websocket_addr }}:{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
       - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}/tcp'
+      - '{{ geth_authrpc_addr }}:{{ geth_authrpc_port }}:{{ geth_authrpc_port }}/tcp'
     labels:
       # These are just for documentation
       org.ethereum.geth.network_name: '{{ geth_network_name }}'
@@ -69,6 +70,12 @@ services:
       --ws.port={{ geth_websocket_port }}
       --ws.api={{ geth_websocket_api }}
       --ws.origins='{{ geth_websocket_origins }}'
+{% endif %}
+{% if geth_authrpc_enabled %}
+      --authrpc.addr=0.0.0.0
+      --authrpc.port={{ geth_authrpc_port }}
+      --authrpc.vhosts={{ geth_authrpc_vhosts | join(",") }}
+      --authrpc.jwtsecret=/keys/jwtsecret
 {% endif %}
 {% if (geth_bootnodes|length) > 0 %}
       --bootnodes="{{ geth_bootnodes | join(',') }}"

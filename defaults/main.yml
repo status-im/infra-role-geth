@@ -50,6 +50,14 @@ geth_websocket_port: '{{ geth_rpc_port + 1 | int }}'
 geth_websocket_api: 'eth,net,web3,personal,admin,engine'
 geth_websocket_origins: 'localhost'
 
+# Engine API
+geth_authrpc_enabled: true
+geth_authrpc_addr: '127.0.0.1'
+geth_authrpc_port: 8551
+geth_authrpc_vhosts: '{{ geth_rpc_vhosts }}'
+geth_authrpc_jwtsecret: '{{ geth_service_name | password_hash("sha512", (inventory_hostname|hash("sha1"))[0:16], rounds=5000) }}'
+geth_authrpc_jwtsecret_file: '{{ geth_cont_vol }}/keys/jwtsecret'
+
 # Sync mode: full, fast, light, snap
 geth_sync_mode: 'light'
 # Maximum number of untrusted peers that can connect

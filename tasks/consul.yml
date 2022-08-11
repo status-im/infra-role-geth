@@ -29,6 +29,19 @@
             timeout: '5s'
             failures_before_critical: 3
 
+      - id:   '{{ geth_cont_name }}-authrpc'
+        name: '{{ geth_consul_service_name }}-authrpc'
+        tags: '{{ geth_consul_tags + ["authrpc", "engine"] }}'
+        port: '{{ geth_authrpc_port }}'
+        address: '{{ ansible_local.wireguard.address }}'
+        meta:
+          url: 'http://{{ ansible_local.wireguard.address }}:{{ geth_authrpc_port }}'
+        checks:
+          - id: '{{ geth_cont_name }}-authrpc-status'
+            type: 'tcp'
+            tcp: 'localhost:{{ geth_authrpc_port }}'
+            failures_before_critical: 3
+
       - id:   '{{ geth_cont_name }}-ws'
         name: '{{ geth_consul_service_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
