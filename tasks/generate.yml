@@ -103,6 +103,7 @@
     group: 'docker'
 
 - name: Geth | Create JWT secret file
+  when: geth_authrpc_jwtsecret is defined
   copy:
     dest: '{{ geth_authrpc_jwtsecret_file }}'
     content: '{{ geth_authrpc_jwtsecret | mandatory }}'
