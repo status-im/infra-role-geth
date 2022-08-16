@@ -116,8 +116,10 @@ geth_public_addr: '{{ ansible_host }}'
 # Consul config
 geth_consul_enabled: true
 geth_consul_service_name: 'geth-{{ geth_network_name }}'
+geth_consul_scope: 'main'
 geth_consul_default_tags:
-  - geth
+  - 'geth'
+  - 'scope:{{ geth_consul_scope }}'
   - '{{ env }}.{{ stage }}'
   - '{{ geth_network_name }}'
 geth_consul_extra_tags: []
