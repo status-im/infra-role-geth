@@ -60,7 +60,7 @@ services:
       --http
       --http.addr=0.0.0.0
       --http.port={{ geth_rpc_port }}
-      --http.vhosts={{ geth_rpc_vhosts | join(",") }}
+      --http.vhosts={{ geth_rpc_vhosts | sort | join(",") }}
       --http.api={{ geth_rcp_api }}
       --ipcpath=/data/geth.ipc
 {% endif %}
@@ -74,11 +74,11 @@ services:
 {% if geth_authrpc_enabled %}
       --authrpc.addr=0.0.0.0
       --authrpc.port={{ geth_authrpc_port }}
-      --authrpc.vhosts={{ geth_authrpc_vhosts | join(",") }}
+      --authrpc.vhosts={{ geth_authrpc_vhosts | sort | join(",") }}
       --authrpc.jwtsecret=/keys/jwtsecret
 {% endif %}
 {% if (geth_bootnodes|length) > 0 %}
-      --bootnodes="{{ geth_bootnodes | join(',') }}"
+      --bootnodes="{{ geth_bootnodes | sort | join(',') }}"
 {% endif %}
       --nousb
       --verbosity={{ geth_log_level_id }}
