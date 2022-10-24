@@ -6,6 +6,7 @@ services:
     image: '{{ geth_cont_image }}'
     user: root
     restart: 'always'
+    stop_grace_period: '{{ geth_cont_stop_grace_period }}'
     deploy:
       resources:
         limits:

@@ -18,6 +18,7 @@ geth_cont_tag: 'v1.10.25'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: '{{ geth_service_name }}-node'
 geth_cont_vol: '{{ geth_service_path }}/node'
+geth_cont_stop_grace_period: '1m'
 
 geth_enode_file: '{{ geth_cont_vol }}/keys/enode'
 geth_sync_check_script: '/usr/local/bin/check_sync_{{ geth_cont_name | replace("-", "_") }}.sh'
