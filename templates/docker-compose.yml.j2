@@ -81,7 +81,6 @@ services:
 {% if (geth_bootnodes|length) > 0 %}
       --bootnodes="{{ geth_bootnodes | sort | join(',') }}"
 {% endif %}
-      --nousb
       --verbosity={{ geth_log_level_id }}
       --maxpeers={{ geth_max_peers }}
       --maxpendpeers="{{ geth_max_pend_peers }}"
