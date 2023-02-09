@@ -6,6 +6,7 @@ URL="http://{{ geth_rpc_addr }}:{{ geth_rpc_port }}/"
 
 METHOD="$1"
 shift
+PARAMS=("$@")
 
 if [[ -z "${METHOD}" ]]; then
     echo "No method specified!" >&2
@@ -25,8 +26,11 @@ PAYLOAD="{
   \"params\": [${PARAMS}]
 }"
 
-curl -s -X POST \
-    -H "Content-type:application/json" \
+# The jq script checks if error exists and adjusts exit code.
+curl --request POST \
+    --silent \
+    --fail-with-body \
+    --header 'Content-type:application/json' \
     --data "${PAYLOAD}" \
     "${URL}" | \
     jq -e '., if .error != null then null|halt_error(2) else halt end'
