@@ -14,10 +14,18 @@ services:
     ports:
       - '{{ geth_port }}:{{ geth_port }}/tcp'
       - '{{ geth_port }}:{{ geth_port }}/udp'
+{% if geth_metrics_enabled %}
       - '{{ geth_metrics_port }}:{{ geth_metrics_port }}/tcp'
+{% endif %}
+{% if geth_websocket_enabled %}
       - '{{ geth_websocket_addr }}:{{ geth_websocket_port }}:{{ geth_websocket_port }}/tcp'
+{% endif %}
+{% if geth_rpc_enabled %}
       - '{{ geth_rpc_addr }}:{{ geth_rpc_port }}:{{ geth_rpc_port }}/tcp'
+{% endif %}
+{% if geth_authrpc_enabled %}
       - '{{ geth_authrpc_addr }}:{{ geth_authrpc_port }}:{{ geth_authrpc_port }}/tcp'
+{% endif %}
     labels:
       # These are just for documentation
       org.ethereum.geth.network_name: '{{ geth_network_name }}'
