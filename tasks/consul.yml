@@ -1,6 +1,8 @@
 ---
-- name: Geth | Consul | Define services
-  set_fact:
+- name: Geth | Consul | Create service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ geth_cont_name }}'
     consul_services:
       - id:   '{{ geth_cont_name }}'
         name: '{{ geth_consul_service_name }}'
@@ -20,6 +22,7 @@
         tags: '{{ geth_consul_tags + ["rpc"] }}'
         port: '{{ geth_rpc_port }}'
         address: '{{ ansible_local.wireguard.address }}'
+        disabled: '{{ not geth_rpc_enabled }}'
         meta:
           url: 'http://{{ ansible_local.wireguard.address }}:{{ geth_rpc_port }}'
         checks:
@@ -34,6 +37,7 @@
         tags: '{{ geth_consul_tags + ["authrpc", "engine"] }}'
         port: '{{ geth_authrpc_port }}'
         address: '{{ ansible_local.wireguard.address }}'
+        disabled: '{{ not geth_authrpc_enabled }}'
         meta:
           url: 'http://{{ ansible_local.wireguard.address }}:{{ geth_authrpc_port }}'
         checks:
@@ -47,6 +51,7 @@
         tags: '{{ geth_consul_tags + ["websocket"] }}'
         port: '{{ geth_websocket_port }}'
         address: '{{ ansible_local.wireguard.address }}'
+        disabled: '{{ not geth_websocket_enabled }}'
         meta:
           url: 'ws://{{ ansible_local.wireguard.address }}:{{ geth_websocket_port }}'
         checks:
@@ -56,13 +61,3 @@
             tcp: 'localhost:{{ geth_websocket_port }}'
             failures_before_critical: 3
 
-- name: Geth | Consul | Remove WebSocket service
-  set_fact:
-    consul_services: |
-      {{ consul_services | rejectattr('name', 'match', '.*-ws$') | list }}
-  when: not geth_websocket_enabled
-
-- name: Geth | Consul | Create service definition
-  include_role: name=consul-service
-  vars:
-    consul_config_name: '{{ geth_cont_name }}'
