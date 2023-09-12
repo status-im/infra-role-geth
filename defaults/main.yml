@@ -14,7 +14,7 @@ geth_account_pass_file: '{{ geth_cont_vol }}/keys/account.pass'
 geth_account_addr_file: '{{ geth_cont_vol }}/keys/account.addr'
 
 # Container config
-geth_cont_tag: 'v1.12.2'
+geth_cont_tag: 'v1.13.0'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: '{{ geth_service_name }}-node'
 geth_cont_vol: '{{ geth_service_path }}/node'
@@ -105,7 +105,7 @@ geth_lov_level_names:
 geth_log_level_name: 'info'
 geth_log_level_id: '{{ geth_lov_level_names[geth_log_level_name | lower] | mandatory }}'
 
-# Available: mainnet, goerli, rinkeby, ropsten, sepolia
+# Available: mainnet, goerli, sepolia, holesky
 geth_network_name: 'mainnet'
 #geth_network_id: ~
 
