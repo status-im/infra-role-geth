@@ -50,7 +50,6 @@ services:
 {% endif %}
 {% if geth_miner_enabled %}
       --mine
-      --miner.threads="{{ geth_miner_threads }}"
       --miner.etherbase="{{ geth_miner_account | mandatory }}"
 {% endif %}
 {% if geth_whisper_enabled %}

@@ -87,7 +87,6 @@ geth_bootnodes: []
 
 # Mining settings
 geth_miner_enabled: false
-geth_miner_threads: '{{ ansible_processor_vcpus }}'
 geth_miner_account: '{{ geth_account_addr }}'
 
 # Whisper protocol
