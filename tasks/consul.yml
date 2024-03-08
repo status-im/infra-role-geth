@@ -18,6 +18,19 @@
             type: tcp
             tcp: '127.0.0.1:{{ geth_port }}'
 
+      - id:   '{{ geth_cont_name }}-metrics'
+        name: '{{ geth_consul_service_name }}-metrics'
+        tags: '{{ geth_consul_tags + ["metrics"] }}'
+        port: '{{ geth_metrics_port }}'
+        address: '{{ geth_consul_advertised_address }}'
+        disabled: '{{ not geth_metrics_enabled }}'
+        checks:
+          - id:   '{{ geth_cont_name }}-metrics-status'
+            type: 'tpc'
+            tcp:  'localhost:{{ geth_metrics_port }}'
+            timeout: '5s'
+            failures_before_critical: 3
+
       - id:   '{{ geth_cont_name }}-rpc'
         name: '{{ geth_consul_service_name }}-rpc'
         tags: '{{ geth_consul_tags + ["rpc"] }}'
