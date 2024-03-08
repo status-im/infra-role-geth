@@ -26,7 +26,7 @@
         disabled: '{{ not geth_metrics_enabled }}'
         checks:
           - id:   '{{ geth_cont_name }}-metrics-status'
-            type: 'tpc'
+            type: 'tcp'
             tcp:  'localhost:{{ geth_metrics_port }}'
             timeout: '5s'
             failures_before_critical: 3
