@@ -16,11 +16,9 @@
   register: geth_all_compose
 
 - name: Geth | Create containers
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ geth_service_path }}'
-    files: '{{ geth_all_compose.files | map(attribute="path") | list }}'
-    state: '{{ compose_state }}'
-    restarted: '{{ compose_restart }}'
-    recreate: '{{ compose_recreate | default("smart") }}'
-    pull: true
-    build: false
+    files:       '{{ geth_all_compose.files | map(attribute="path") | list }}'
+    state:       '{{ compose_state }}'
+    recreate:    '{{ compose_recreate }}'
+    pull:        '{{ compose_pull }}'

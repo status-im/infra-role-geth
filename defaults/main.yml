@@ -133,6 +133,6 @@ geth_cont_mem_ratio: 0.6
 geth_cont_mem_limit: '{{ (ansible_memtotal_mb * geth_cont_mem_ratio|float) | int }}'
 
 # general container management
-compose_recreate: 'smart'
+compose_recreate: 'auto'
 compose_state: 'present'
-compose_restart: false
+compose_pull: 'always'
