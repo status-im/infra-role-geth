@@ -39,8 +39,8 @@ geth_rpc_vhosts:
   - 'localhost'
   - '{{ geth_cont_name }}'
   - '{{ geth_rpc_extra_vhost }}'
-  - '{{ hostname }}'
-  - '{{ hostname }}.wg'
+  - '{{ inventory_hostname }}'
+  - '{{ inventory_hostname }}.wg'
   - '{{ ansible_local.wireguard.vpn_ip }}'
 # Wrapper for easier RPC usage
 geth_rpc_wrapper: '{{ geth_service_path }}/rpc.sh'
