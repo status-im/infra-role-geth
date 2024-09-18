@@ -60,7 +60,7 @@ geth_authrpc_vhosts: '{{ geth_rpc_vhosts }}'
 geth_authrpc_jwtsecret_file: '{{ geth_cont_vol }}/keys/jwtsecret'
 
 # Sync mode: full, fast, light, snap
-geth_sync_mode: 'light'
+geth_sync_mode: 'snap'
 # Maximum number of untrusted peers that can connect
 geth_max_peers: 50
 # Maximum pending connection attempts
