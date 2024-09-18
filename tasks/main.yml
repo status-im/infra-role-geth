@@ -5,7 +5,6 @@
 - import_tasks: init.yml
   when: geth_init_enabled
 - import_tasks: container.yml
-- import_tasks: firewall.yml
 - import_tasks: wrappers.yml
 - import_tasks: save_enode.yml
 - import_tasks: consul.yml
