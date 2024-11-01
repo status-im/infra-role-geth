@@ -24,6 +24,8 @@
         port: '{{ geth_metrics_port }}'
         address: '{{ geth_consul_advertised_address }}'
         disabled: '{{ not geth_metrics_enabled }}'
+        meta:
+          container: '{{ geth_cont_name | mandatory }}'
         checks:
           - id:   '{{ geth_cont_name }}-metrics-status'
             type: 'tcp'
