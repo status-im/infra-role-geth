@@ -22,7 +22,7 @@
         name: '{{ geth_consul_service_name }}-metrics'
         tags: '{{ geth_consul_tags + ["metrics"] }}'
         port: '{{ geth_metrics_port }}'
-        address: '{{ geth_consul_advertised_address }}'
+        address: '{{ ansible_local.wireguard.address }}'
         disabled: '{{ not geth_metrics_enabled }}'
         meta:
           container: '{{ geth_cont_name | mandatory }}'
@@ -37,10 +37,10 @@
         name: '{{ geth_consul_service_name }}-rpc'
         tags: '{{ geth_consul_tags + ["rpc"] }}'
         port: '{{ geth_rpc_port }}'
-        address: '{{ geth_consul_advertised_address }}'
+        address: '{{ geth_consul_rpc_advertised_address }}'
         disabled: '{{ not geth_rpc_enabled }}'
         meta:
-          url: 'http://{{ geth_consul_advertised_address }}:{{ geth_rpc_port }}'
+          url: 'http://{{ geth_consul_rpc_advertised_address }}:{{ geth_rpc_port }}'
           version: '{{ geth_cont_tag | regex_replace("^v", "") }}'
         checks:
           - id: '{{ geth_cont_name }}-rpc-status'
@@ -53,10 +53,10 @@
         name: '{{ geth_consul_service_name }}-authrpc'
         tags: '{{ geth_consul_tags + ["authrpc", "engine"] }}'
         port: '{{ geth_authrpc_port }}'
-        address: '{{ geth_consul_advertised_address }}'
+        address: '{{ geth_consul_rpc_advertised_address }}'
         disabled: '{{ not geth_authrpc_enabled }}'
         meta:
-          url: 'http://{{ geth_consul_advertised_address }}:{{ geth_authrpc_port }}'
+          url: 'http://{{ geth_consul_rpc_advertised_address }}:{{ geth_authrpc_port }}'
           version: '{{ geth_cont_tag | regex_replace("^v", "") }}'
         checks:
           - id: '{{ geth_cont_name }}-authrpc-status'
@@ -68,10 +68,10 @@
         name: '{{ geth_consul_service_name }}-ws'
         tags: '{{ geth_consul_tags + ["websocket"] }}'
         port: '{{ geth_websocket_port }}'
-        address: '{{ geth_consul_advertised_address }}'
+        address: '{{ geth_consul_rpc_advertised_address }}'
         disabled: '{{ not geth_websocket_enabled }}'
         meta:
-          url: 'ws://{{ geth_consul_advertised_address }}:{{ geth_websocket_port }}'
+          url: 'ws://{{ geth_consul_rpc_advertised_address }}:{{ geth_websocket_port }}'
           version: '{{ geth_cont_tag | regex_replace("^v", "") }}'
         checks:
           - id: '{{ geth_cont_name }}-ws-status'
@@ -79,4 +79,3 @@
             type: 'tcp'
             tcp: 'localhost:{{ geth_websocket_port }}'
             failures_before_critical: 3
-
