@@ -52,7 +52,7 @@ services:
       --miner.etherbase="{{ geth_miner_account | mandatory }}"
 {% endif %}
 {% if geth_whisper_enabled %}
-      --shh 
+      --shh
       --shh.pow={{ geth_whisper_pow }}
 {% endif %}
 {% if geth_metrics_enabled %}

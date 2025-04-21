@@ -10,7 +10,7 @@
     - '{{ geth_cont_vol }}/keys'
 
 - name: Geth | Check if account file exists
-  stat: 
+  stat:
     path: '{{ geth_account_json_file }}'
   register: account_file
   when: geth_account_json is not defined
