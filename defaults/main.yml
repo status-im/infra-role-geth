@@ -67,6 +67,8 @@ geth_max_peers: 50
 geth_max_pend_peers: 30
 # Maximum percentage of time allowed for serving LES requests (0-90)
 geth_light_serv: 90
+# Maximum amount of gas for transactions in a single block
+geth_gas_limit: 36000000
 # Peer discovery protocol
 geth_discovery_enabled: true
 geth_v5disc_enabled: true

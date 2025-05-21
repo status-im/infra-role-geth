@@ -97,6 +97,7 @@ services:
       --datadir=/data
       --password=/keys/account.pass
       --keystore=/keys
+      --miner.gaslimit={{ geth_gas_limit }}
 {% for extra_flag in geth_extra_flags %}
       {{ extra_flag }}
 {% endfor %}
