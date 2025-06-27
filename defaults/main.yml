@@ -14,7 +14,7 @@ geth_account_pass_file: '{{ geth_cont_vol }}/keys/account.pass'
 geth_account_addr_file: '{{ geth_cont_vol }}/keys/account.addr'
 
 # Container config
-geth_cont_tag: 'v1.15.11'
+geth_cont_tag: 'v1.16.0'
 geth_cont_image: 'ethereum/client-go:{{ geth_cont_tag }}'
 geth_cont_name: '{{ geth_service_name }}-node'
 geth_cont_vol: '{{ geth_service_path }}/node'
@@ -65,8 +65,6 @@ geth_sync_mode: 'snap'
 geth_max_peers: 50
 # Maximum pending connection attempts
 geth_max_pend_peers: 30
-# Maximum percentage of time allowed for serving LES requests (0-90)
-geth_light_serv: 90
 # Maximum amount of gas for transactions in a single block
 geth_gas_limit: 36000000
 # Peer discovery protocol
