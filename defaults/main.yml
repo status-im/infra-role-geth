@@ -66,7 +66,7 @@ geth_max_peers: 50
 # Maximum pending connection attempts
 geth_max_pend_peers: 30
 # Maximum amount of gas for transactions in a single block
-geth_gas_limit: 36000000
+geth_gas_limit: 45000000
 # Peer discovery protocol
 geth_discovery_enabled: true
 geth_v5disc_enabled: true
