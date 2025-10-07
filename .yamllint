@@ -1,0 +1,13 @@
+---
+rules:
+  colons:
+    max-spaces-before: 20
+    max-spaces-after: 20
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+  line-length:
+    max: 300
+  quoted-strings:
+    quote-type: single
+    required: only-when-needed

@@ -1,0 +1,14 @@
+---
+name: ansible-lint
+on:
+  pull_request:
+    branches: [master]
+jobs:
+  build:
+    name: Ansible Lint
+    runs-on: [self-hosted, Linux]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        shell: bash
+        run: nix run 'github:NixOS/nixpkgs/25.05#ansible-lint'
