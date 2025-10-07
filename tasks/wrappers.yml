@@ -5,7 +5,7 @@
     dest: '{{ geth_service_path }}/attach.sh'
     owner: 'root'
     group: 'docker'
-    mode: 0750
+    mode: '0o750'
 
 - name: Create Geth JSON RPC wrapper script
   template:
@@ -13,4 +13,4 @@
     dest: '{{ geth_rpc_wrapper }}'
     owner: 'root'
     group: 'docker'
-    mode: 0750
+    mode: '0o750'

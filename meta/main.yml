@@ -4,12 +4,13 @@ galaxy_info:
   description: Deploy and setup go-ethereum node.
   company: Status.im
   license: MIT
-  min_ansible_version: 1.9
+  min_ansible_version: '2.17'
   platforms:
-  - name: Ubuntu
-    versions:
-    - xenial
-  dependencies:
-    - name: infra-role-consul-service
-      src: git+git@github.com:status-im/infra-role-consul-service.git
-      scm: git
+    - name: Ubuntu
+      versions:
+        - xenial
+
+dependencies:
+  - name: infra-role-consul-service
+    src: git+git@github.com:status-im/infra-role-consul-service.git
+    scm: git

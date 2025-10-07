@@ -6,7 +6,7 @@
     checksum: 'sha256: {{ geth_init_sha256 | mandatory }}'
     owner: dockremap
     group: docker
-    mode: 0644
+    mode: '0o644'
 
 - name: Check if chaindata was created
   stat:

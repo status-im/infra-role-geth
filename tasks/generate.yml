@@ -5,6 +5,7 @@
     owner: dockremap
     group: docker
     state: directory
+    mode: '0o750'
   with_items:
     - '{{ geth_cont_vol }}/data'
     - '{{ geth_cont_vol }}/keys'
@@ -12,8 +13,8 @@
 - name: Geth | Check if account file exists
   stat:
     path: '{{ geth_account_json_file }}'
-  register: account_file
   when: geth_account_json is not defined
+  register: account_file
 
 - name: Geth | Create password file
   copy:
@@ -21,18 +22,18 @@
     content: '{{ geth_account_pass | mandatory }}'
     owner: dockremap
     group: docker
-    mode: 0600
+    mode: '0o600'
 
 - name: Geth | Write account JSON
+  when: >
+    geth_account_json is defined and
+    geth_account_json != ""
   copy:
     dest: '{{ geth_account_json_file }}'
     content: '{{ geth_account_json | mandatory }}'
     owner: dockremap
     group: docker
-    mode: 0640
-  when: >
-    geth_account_json is defined and
-    geth_account_json != ""
+    mode: '0o640'
 
 - name: Geth | Generate account
   when: >
@@ -46,7 +47,7 @@
         image: '{{ geth_cont_image }}'
         detach: false
         pull: true
-        auto_remove: yes
+        auto_remove: true
         command: |
           account new
           --keystore=/keys
@@ -101,6 +102,7 @@
     content: '{{ geth_account_addr | mandatory }}'
     owner: 'dockremap'
     group: 'docker'
+    mode: '0o644'
 
 - name: Geth | Create JWT secret file
   when: geth_authrpc_jwtsecret is defined
@@ -109,3 +111,4 @@
     content: '{{ geth_authrpc_jwtsecret | mandatory }}'
     owner: 'dockremap'
     group: 'docker'
+    mode: '0o400'

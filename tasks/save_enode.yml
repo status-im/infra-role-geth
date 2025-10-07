@@ -15,7 +15,7 @@
     method: POST
     body: '{"id": 1, "jsonrpc": "2.0", "method": "admin_nodeInfo"}'
     body_format: json
-    return_content: yes
+    return_content: true
   register: node_info
 
 - name: 'Geth | Save enode address: {{ geth_enode_file }}'
@@ -24,4 +24,4 @@
     content: '{{ node_info.json.result.enode }}'
     owner: dockremap
     group: docker
-    mode: 0644
+    mode: '0o644'

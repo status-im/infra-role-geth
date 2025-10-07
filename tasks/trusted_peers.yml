@@ -5,5 +5,5 @@
     dest: '{{ geth_trusted_peers_file }}'
     owner: dockremap
     group: docker
-    mode: 0600
+    mode: '0o600'
   when: geth_trusted_peers|length > 0

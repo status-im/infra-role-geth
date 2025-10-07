@@ -1,6 +1,7 @@
 ---
 - name: Geth | Consul | Create service definition
-  include_role: name=infra-role-consul-service
+  include_role:
+    name: infra-role-consul-service
   vars:
     consul_config_name: '{{ geth_cont_name }}'
     consul_services:
