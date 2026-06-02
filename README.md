@@ -6,7 +6,7 @@ The image used by default is [ethereum/client-go](https://hub.docker.com/r/ether
 
 # Configuration
 
-The only mandaotry settings is the account password, which can be set to an empty string:
+The only mandatory settings is the account password, which can be set to an empty string:
 
 ```yaml
 geth_account_password: 'my-secret-password'
