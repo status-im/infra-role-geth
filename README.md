@@ -25,7 +25,6 @@ geth_consul_extra_tags: ['mytag']
 By default this role creates a new account.
 If you want to control the account used by the `geth` process you can use:
 ```yaml
-geth_account_addr: 0x1j98dsa087fh09as8d7fhsa98dhfas9s0dasjd0d
 geth_account_pass: my-secret-account-pass
 geth_account_json: '{"account":"json_data"}'
 ```

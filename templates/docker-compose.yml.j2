@@ -40,13 +40,9 @@ services:
 {% if not geth_discovery_enabled %}
       --nodiscover
 {% endif %}
-{% if geth_v5disc_enabled %}
-      --v5disc
-{% endif %}
       --syncmode={{ geth_sync_mode }}
 {% if geth_miner_enabled %}
       --mine
-      --miner.etherbase="{{ geth_miner_account | mandatory }}"
 {% endif %}
 {% if geth_whisper_enabled %}
       --shh
@@ -89,8 +85,6 @@ services:
       --maxpendpeers="{{ geth_max_pend_peers }}"
       --port={{ geth_port }}
       --nat=extip:{{ geth_public_addr }}
-      --unlock={{ geth_account_addr }}
-      --allow-insecure-unlock
       --datadir=/data
       --password=/keys/account.pass
       --keystore=/keys
